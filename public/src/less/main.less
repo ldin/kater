@@ -1,0 +1,167 @@
+@orange: #ff9000;
+@black: #000000;
+@white: #ffffff;
+@gray: #e9e9e9;
+@blue-dark: #3e5373;
+@blue: #4e6890;
+@blue-light: #92c8e4;
+@yellow-light: #fff36d;
+@yellow-dark: #f9e82e;
+@gray-light: #f5f5f7;
+
+@font-face {
+  font-family: 'Tinos';
+  font-weight: normal;
+  src: url(/fonts/tinos/Tinos-Regular.ttf);
+}
+@font-face {
+  font-family: 'Tinos';
+  font-weight: bold;
+  src: url(/fonts/tinos/Tinos-Bold.ttf);
+}
+@font-face {
+  font-family: 'Tinos';
+  font-weight: bold;
+  font-style: italic;
+  src: url(/fonts/tinos/Tinos-BoldItalic.ttf);
+}
+@font-face {
+  font-family: 'Tinos';
+  font-style: italic;
+  src: url(/fonts/tinos/Tinos-Italic.ttf);
+}
+
+html,body {  height: 100%;}
+.wappers{min-height: 100%; padding-bottom: 209px; }
+footer{min-height: 209px; margin-top: -209px;}
+
+html, body{font:normal normal 16px 'Tinos', Open Sans, Helvetica, sans-serif;}
+.left{float: left;}
+.right{float: right;}
+
+header{
+  .head{
+    min-height: 130px;
+    background: #32435d url("/images/bg/header.png") no-repeat center;
+    color: @white;
+    .txt-block{
+      margin-top: 25px;
+    }
+    .tel{color: @white}
+    .btn-main{margin-bottom: -60px;}
+  }
+  #mainLogo{
+    background: url("/images/logo.png") no-repeat;
+    height: 79px;
+    width: 100%;
+    display: block;
+    margin: 25px 0;
+  }
+  #menu {
+    background: @blue-dark;
+    .nav{
+      display: table;
+      position: relative;
+      width: 80%;
+      li{display: table-cell; text-align: center; vertical-align: middle; float: none;}
+      a {
+        padding: 15px;
+        color: @white;
+        &:hover{
+          background: @blue;
+        }
+      }
+    }
+    .navbar{margin: 0;}
+  }
+}
+
+.btn-main, a.btn-main{
+  background: @yellow-dark;
+  background: linear-gradient(to top, @yellow-dark, @yellow-light);
+  color: @blue-dark;
+  font-size: 20px;
+  padding: 15px 30px;
+}
+.container-80{
+  width: 80%;
+  margin: 0 10%;
+}
+#page-block-menu{
+  background: @gray-light;
+  a:hover{text-decoration: none;}
+  ul {
+    width: 100%;
+    height: 210px;
+    position: relative;
+    margin: 0;
+    li {
+      width: 16%;
+      display: inline-block;
+      text-align: center;
+      height: 210px;
+      padding: 0; margin: 0;
+      position: relative;
+      a{color: @blue-light;}
+      .img{
+        display: block;
+        height: 150px;
+        opacity: 0.5;
+        img{margin: auto; max-width: 100%; max-height: 100%; margin-top: 20px;}
+      }
+      .txt{
+        height: 60px;
+        display: block;
+        font-size: 18px;
+      }
+      &.active{
+        background: @white;
+        a{color: @blue-dark;}
+        .img{opacity: 1;}
+      }
+
+    }
+  }
+}
+
+#items{
+  color: @blue-dark;
+  .item{margin: 20px auto}
+  .name{font-size: 28px; text-decoration: underline;}
+  .price{
+    margin: 0 20px;
+    span{font-size: 28px;}
+  }
+  img{max-width: 100%;}
+}
+
+.text-block{
+  background: @gray-light;
+  padding: 50px 0;
+  color: @blue-dark;
+}
+
+footer{
+  color: @blue-dark;
+  line-height: 14px;
+  a{color: @blue-dark}
+  #footerMap{
+    position: relative;
+    height: 420px;
+    width: 100%;
+    //&:after{
+    //  content: '';
+    //  position: absolute;
+    //  width: 100%; height: 100%;
+    //  left: 0; top: 0;
+    //  background: rgba(50, 67, 93, 0.64);
+    //}
+  }
+  #footerLogo{
+    width: 240px;
+    height: 41px;
+    display: block;
+    background: url("/images/logo-sm.png") no-repeat;
+    margin: 20px auto;
+  }
+}

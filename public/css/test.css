@@ -1,0 +1,1 @@
+@-webkit-keyframes animationExample{from{width:0}to{width:100%}}@keyframes animationExample{from{width:0}to{width:100%}}#for-you{-webkit-transition:2s;transition:2s}#for-you .row>div{-webkit-animation:animationExample 2s;animation:animationExample 2s;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}#for-you:hover{background:#f90;color:#fff}

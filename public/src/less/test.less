@@ -1,0 +1,19 @@
+@keyframes animationExample {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+#for-you{
+  transition: 2s;
+  .row>div{
+    animation: animationExample 2s;
+    display: flex;
+  }
+  &:hover{
+    background: #ff9900;
+    color: #fff;
+  }
+}
