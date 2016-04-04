@@ -29,7 +29,7 @@
     <div class="wappers">
         <header id="header">
             <article class="head js-header-block" data-type="background" data-speed="10">
-                <div class="container">
+                <div class="container-80">
                     <div class="col-xs-6">
                         <a id="mainLogo"  href="/"></a>
                     </div>
@@ -40,14 +40,14 @@
                                 <span itemprop="telephone"> {{ !empty($settings['phone'])?$settings['phone']:'' }}</span>
                             </a>
                         </p>
-                        <a href="" class="btn btn-main">Заказать прокат</a>
+                        <a href="" class="btn btn-main">Забронировать судно</a>
                     </div>
                 </div>
 
             </article>
             <div id="menu" class="relative">
                 <nav class="navbar">
-                    <div class="container">
+                    <div class="container-80">
                         <!-- Brand and toggle get grouped for better mobile display -->
                         <div class="navbar-header">
                             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">

@@ -30,13 +30,15 @@
 
                <div class="col-xs-12 col-sm-3 item">
                    <img src="/images/princess421.png" alt="">
-                   <p class="name">Lady Ola</p>
-                   <p>Скорость хода: 15-17 узлов</p>
-                   <p>Команда: 3 человека</p>
-                   <p>Количество пассажиров: 60 человек</p>
-                   <p>Неограниченный район плавания</p>
-                   <p class="price"><span>1500</span> руб/час</p>
-                   <a class="btn btn-main">Заказать прокат</a>
+                   <div class="description">
+                       <p class="name">Lady Ola</p>
+                       <p>Команда: 3 человека</p>
+                       <p>Количество пассажиров: 60 человек</p>
+                       <p>Неограниченный район плавания</p>
+                       <p>Скорость хода: 15-17 узлов</p>
+                       <p class="price"><span>1500</span> руб/час</p>
+                       <p class="text-center"><a class="btn btn-main">Арендовать</a></p>
+                   </div>
                </div>
 
                @endfor
