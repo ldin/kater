@@ -1,70 +1,99 @@
 @extends('home.layout')
 
 @section('title')
-    {{ !empty($row->title)? $row->title:(!empty($type->title)? $type->title:'Asafov design') }}
+    {{ !empty($row->title)? $row->title:(!empty($type->title)? $type->title:'') }}
 @stop
 
 @section('content')
 
-        @if(isset($posts)&&count($posts)>0)
-            <div id="page-block-menu">
-                <div class="container-80">
-                    <ul class="menu-page">
+    <div id="content" class="container">
+
+        <div class="row">
+
+            @if(isset($posts)&&count($posts)>0)
+                <div id="page-menu" class="col-xs-12 col-lg-2 col-md-3">
+
+                    <p class="nav-title {{ (Request::is( $type->type)) ? 'active' : '' }}">
+                        {{ HTML::link($type->type, $type->name ) }}
+                    </p>
+
+                    <ul class="menu-page nav nav-pills nav-stacked ">
                         @foreach($posts as $post)
                             <li {{ (Request::is( $type->type.'/'.$post->slug)) || (!empty($row)&&$row->parent==$post->id)? 'class="active"' : '' }} >
-                                <a href="/{{$type->type.'/'.$post->slug}}">
-                                <div class="img">
-                                    {{ HTML::image('upload/image/'.$post->image, $post->name) }}
-                                </div>
-                                <p class="txt">{{ $post->name }}</p>
-                                </a>
+                                {{ HTML::link('/'.$type->type.'/'.$post->slug, $post->name) }}
+
+                                @if(isset($posts_child)&&count($posts_child)>0)
+                                    <ul>
+                                        @foreach($posts_child as $post_ch)
+                                            @if(($post_ch->parent == $post->id) )
+                                                <li {{ (Request::is( $type->type.'/'.$post_ch->slug)) ? 'class="active"' : '' }}>
+                                                    {{ HTML::link('/'.$type->type.'/'.$post_ch->slug, $post_ch->name) }}
+                                                </li>
+                                            @endif
+                                        @endforeach
+                                    </ul>
+                                @endif
                             </li>
                         @endforeach
                     </ul>
+
                 </div>
-            </div>
-        @endif
-        <div class="container-80">
-            <div id="items" class="row">
-               @for($i=0; $i<8; $i++)
+            @endif
 
-               <div class="col-xs-12 col-sm-3 item">
-                   <img src="/images/princess421.png" alt="">
-                   <p class="name">Lady Ola</p>
-                   <p>Скорость хода: 15-17 узлов</p>
-                   <p>Команда: 3 человека</p>
-                   <p>Количество пассажиров: 60 человек</p>
-                   <p>Неограниченный район плавания</p>
-                   <p class="price"><span>1500</span> руб/час</p>
-                   <a class="btn btn-main">Заказать прокат</a>
-               </div>
+            <div class="col-xs-12 {{ (isset($posts)&&count($posts)>0)?"col-sm-8 col-lg-offset-1":"col-sm-12"  }} ">
 
-               @endfor
+
+                @if(!empty($row->text))
+                    {{ $row->text }}
+                @endif
+
+                @if(empty($row))
+                    {{ $type->text }}
+                @endif
+
+                @if(isset($subcategory)&&count($subcategory)>0)
+                    @foreach($subcategory as $post)
+
+
+                        <?php $parts = preg_split('/<div style="page-break-after: always"><span style="display:none">&nbsp;<\/span><\/div>/', $post->text); ?>
+
+                        <div class="block-post row block-news">
+
+                            <div class="col-xs-9 ">
+                                <p>{{$post->name}}</p>
+                                @if(!empty($post->preview_img))
+                                    {{ HTML::image($post->preview_img, '') }}
+                                @endif
+
+                                {{$post->preview}}
+                                <br>
+                                <p>{{ HTML::link($type->type.'/'.$post->slug, 'подробнее >>') }}</p>
+
+                            </div>
+                            <div class="col-xs-3 ">
+                                <p class="data-post">{{ date( 'd.m.Y', strtotime($post->created_at)); }}</p>
+                                @if(count($parts)>1)
+                                    <p><a href="#" class="img-circle circle" onclick="diplay_hide('#parts-{{$post->id}}', this);return false;"><i class="glyphicon glyphicon-menu-down"></i></a></p>
+                                @endif
+                            </div>
+
+                        </div>
+                        <hr>
+                    @endforeach
+
+                    {{ $subcategory->links() }}
+                @endif
+
+
             </div>
+
+
+
         </div>
 
-        <div class="row text-block">
-            <div class="container-80">
-                <div class="col-xs-12 col-sm-6">
-                    <h3>Почему становится популярным прокат катеров?</h3>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <p>
-                        Рост спроса на услугу довольно просто объяснить. Многие хотят сделать оригинальный подарок близким, или же оформить свое мероприятие так, чтобы оно запомнилось на долгие годы. Эксклюзивность услуг и премиум формат поможет сделать праздник действительно волшебным. Прокат катеров в компании Numidal предполагает, что путь путешествия вы можете выбрать сами, или же наши сотрудники предоставят вам план маршрута по самым красочным местам Петербурга.
-                    </p>
-                    <p>
-                        Если вам нужна арена катеров, цены можно просмотреть на нашем сайте. Лучше всего взять катер напрокат вместе с персоналом, который сделает ваш отдых более приятным и заставит забыть обо всех проблемах.
-                    </p>
-                    <p>
-                        Если вы ищите самый простой и интересный способ удивить близких и устроить нечто незабываемое, то аренда катера в СПб – как раз то, что вам необходимо.
-                    </p>
-                </div>
-            </div>
-        </div>
-
+    </div>
 
 @stop
-
 
 @section('scripts')
 

@@ -39,7 +39,7 @@ class HomeController extends BaseController {
 //        );
 //
 //        return View::make('home.index', $view);
-        return Redirect::to('/page');
+        return Redirect::to('/main');
     }
 
     public function getPage($type, $slug=''){
