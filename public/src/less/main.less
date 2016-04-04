@@ -43,6 +43,7 @@ header{
   .head{
     min-height: 130px;
     background: #32435d url("/images/bg/header.png") no-repeat center;
+    background-size: contain;
     color: @white;
     .txt-block{
       margin-top: 25px;
@@ -51,11 +52,18 @@ header{
     .btn-main{margin-bottom: -60px;}
   }
   #mainLogo{
-    background: url("/images/logo.png") no-repeat;
     height: 79px;
-    width: 100%;
+    width: 441px;
     display: block;
     margin: 25px 0;
+    position: relative;
+    .title{
+      position: absolute;
+      bottom: 0;
+      color: @white;
+      left: 105px;
+      font-size: 22px;
+    }
   }
   #menu {
     background: @blue-dark;
@@ -73,6 +81,8 @@ header{
       }
     }
     .navbar{margin: 0;}
+    .navbar-toggle {border-color: @white;}
+    .navbar-toggle .icon-bar  {background-color: @white}
   }
 }
 
@@ -95,7 +105,7 @@ header{
     position: relative;
     margin: 0; padding: 0;
     li {
-      width: 16%;
+      width: 16.3%;
       display: inline-block;
       text-align: center;
       padding: 0; margin: 0;
@@ -173,5 +183,39 @@ footer{
   .container-80{
     width: 2000px;
     margin: auto;
+  }
+}
+@media(max-width: 1340px){
+  header #menu .nav {width: 70%;}
+}
+@media(max-width: 1140px){
+  header #mainLogo .title{font-size: 20px;}
+}
+
+@media(min-width: 768px) and (max-width: 992px){
+  header .head {
+    background-size: cover;
+    .btn-main { margin-bottom: 0px; float: right;}
+    .address{float: left; text-align: center}
+  }
+}
+
+@media (max-width: 768px) {
+  header .head {
+    background-size: cover;
+    text-align: center;
+    .btn-main { margin-bottom: 0px; float: none;}
+    .address{float: none; text-align: center}
+
+  }
+  header #menu .nav li {  display: block; text-align: left; }
+  #page-block-menu ul li {width: 32%;}
+}
+
+@media (max-width: 490px) {
+  header .head #mainLogo{
+    width: 100%;
+    img{max-width: 100%}
+    .title {left: 10%;}
   }
 }

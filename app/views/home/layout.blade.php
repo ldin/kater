@@ -30,20 +30,24 @@
         <header id="header">
             <article class="head js-header-block" data-type="background" data-speed="10">
                 <div class="container-80">
-                    <div class="col-xs-6">
-                        <a id="mainLogo"  href="/">
-                            <span>Numidal</span>
-                            <span>Аренда судов в Санкт-Петербурге</span>
-                        </a>
-                    </div>
-                    <div class="text-right col-xs-6 txt-block">
-                        <p>{{(!empty($settings['address'])?$settings['address']:'').', '.(!empty($settings['name'])?$settings['name']:'')}}</p>
-                        <p>
-                            <a href="tel:{{!empty($settings['phone'])?preg_replace('/[^0-9]/', '', $settings['phone']):''}}" class="tel">
-                                <span itemprop="telephone"> {{ !empty($settings['phone'])?$settings['phone']:'' }}</span>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-7">
+                            <a id="mainLogo"  href="/">
+                                <img src="/images/logo.png" alt="Numidal">
+                                <span class="title">Аренда судов в Санкт-Петербурге</span>
                             </a>
-                        </p>
-                        <a href="" class="btn btn-main">Забронировать судно</a>
+                        </div>
+                        <div class="text-right col-xs-12 col-md-5 txt-block">
+                            <div class="address">
+                                <p>{{(!empty($settings['address'])?$settings['address']:'').', '.(!empty($settings['name'])?$settings['name']:'')}}</p>
+                                <p>
+                                    <a href="tel:{{!empty($settings['phone'])?preg_replace('/[^0-9]/', '', $settings['phone']):''}}" class="tel">
+                                        <span itemprop="telephone"> {{ !empty($settings['phone'])?$settings['phone']:'' }}</span>
+                                    </a>
+                                </p>
+                            </div>
+                            <a href="" class="btn btn-main">Забронировать судно</a>
+                        </div>
                     </div>
                 </div>
 
