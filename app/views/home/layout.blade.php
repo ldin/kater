@@ -31,7 +31,10 @@
             <article class="head js-header-block" data-type="background" data-speed="10">
                 <div class="container-80">
                     <div class="col-xs-6">
-                        <a id="mainLogo"  href="/"></a>
+                        <a id="mainLogo"  href="/">
+                            <span>Numidal</span>
+                            <span>Аренда судов в Санкт-Петербурге</span>
+                        </a>
                     </div>
                     <div class="text-right col-xs-6 txt-block">
                         <p>{{(!empty($settings['address'])?$settings['address']:'').', '.(!empty($settings['name'])?$settings['name']:'')}}</p>
