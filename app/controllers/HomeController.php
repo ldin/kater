@@ -14,6 +14,8 @@ class HomeController extends BaseController {
     |   Route::get('/', 'HomeController@showWelcome');
     |
     */
+    protected $layout = 'home.layout';
+
     protected function setupLayout()
     {
         $type_page=Type::where('status',1)->lists('name', 'type');
@@ -52,9 +54,12 @@ class HomeController extends BaseController {
             return Response::view('errors.not-found')->header('Content-Type',  '404 Not Found');
         }
         if($type_post->template=='gallery'){
-            $row = Post::where('slug', $type)->first();
-            $type_post = Type::where('id', $row->type_id)->first();
-            $galleries = Gallery::where('post_id', $row->id)->get();
+            $posts = Post::where('type_id',$type_post->id)->where('status',1)->where('parent',0)->orderBy('order', 'asc')->get();
+//            var_dump('<pre>',$t);
+            foreach ($posts as $key => $post) {
+                $post->gallerie = Gallery::where('post_id', $post->id)->get();
+//                var_dump('<pre>',$post->galleries);
+            }
         }
 
         else if($type_post->template=='news'){
@@ -90,6 +95,8 @@ class HomeController extends BaseController {
                 $galleries = Gallery::where('post_id', $row->id)->get();
             }
         }
+
+//        var_dump('<pre>',$posts);
 
         $view = array(
             'type'=>$type_post,

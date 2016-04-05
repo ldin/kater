@@ -1,7 +1,7 @@
 @extends('home.layout')
 
 @section('title')
-    {{ !empty($row->title)? $row->title:(!empty($type->title)? $type->title:('Asafov design')) }}
+    {{ !empty($row->title)? $row->title:(!empty($type->title)? $type->title:'') }}
 @stop
 
 @section('header')
@@ -13,43 +13,67 @@
     <!-- Optionally add helpers - button, thumbnail and/or media -->
     <link rel="stylesheet" href="/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
     <style type="text/css">
-    .fancybox-title-outside-wrap{background-color: rgba(0,0,0,0.5); padding: 10px;}
+    .fancybox-title-outside-wrap{
+        background-color: rgba(0,0,0,0.7);
+        padding: 10px;
+        margin-top: -40px;
+        bottom: 0;
+        width: 100%;
+        position: absolute;
+    }
     </style>
 @stop
 
 @section('content')
 
-    <div id="content" class="container">
+    <div id="content-gallery" class="container">
 
-      @if(!empty($row->text))
-          {{ $row->text }}
-      @endif
-    
-      <!-- Контейнер с адаптиными блоками -->
-      <div class="masonry">
-          <!-- Адаптивные блоки с содержанием -->
+    <div class="row row-content">
 
-          @foreach($galleries as $image)
-            <div class="item">
-              <a class="fancybox" rel="gallery" href="{{ $image->image }}" title="{{ $image->text }}">
-                {{ HTML::image($image->small_image, $image->alt) }}
-              </a>
-              <br>
-              {{ $image->text }}
-            </div>
-          @endforeach
+        <div class="col-xs-12 ">
 
-          <!-- Конец адаптивных блоков с содержанием -->
-       
-      </div>
-      <!-- Конец контейнера с адаптивными блоками -->
+            @if(!empty($type->text) && empty($row))
+                {{ $type->text }}
+            @endif
+
+            @if(isset($posts)&&count($posts)>0)
+
+
+
+                @foreach($posts as $post)
+                    
+                    <div class="item">
+                        {{ $post->text  }}
+                    </div>
+                    @if(!empty($post->gallerie))
+                        <!-- Контейнер с адаптиными блоками -->
+                        <div class="masonry">
+                            <!-- Адаптивные блоки с содержанием -->
+                            @foreach($post->gallerie as $image)
+                                <div class="item">
+                                  <a class="fancybox" rel="gallery" href="{{ $image->image }}" title="{{ $image->text }}">
+                                    {{ HTML::image($image->small_image, $image->alt) }}
+                                  </a>
+                                </div>
+                            @endforeach
+                            <!-- Конец адаптивных блоков с содержанием -->
+                        </div>
+                        <!-- Конец контейнера с адаптивными блоками -->
+                    @endif
+                @endforeach
+
+            @endif
+        </div>
+
+    </div>
+
+
     </div>
 
 @stop
 
 
 @section('scripts')
-
   <!-- Add mousewheel plugin (this is optional) -->
   <script type="text/javascript" src="/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
 
@@ -70,6 +94,7 @@
       $(".fancybox").fancybox({
           prevEffect  : 'none',
           nextEffect  : 'none',
+          padding:0,
           helpers : {
             title : {
               type: 'outside'
@@ -83,7 +108,4 @@
     });
 
   </script>
-
-
-
 @stop
