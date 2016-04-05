@@ -35,9 +35,10 @@ html,body {  height: 100%;}
 .wappers{min-height: 100%; padding-bottom: 209px; }
 footer{min-height: 209px; margin-top: -209px;}
 
-html, body{font:normal normal 16px 'Tinos', Open Sans, Helvetica, sans-serif;}
+html, body{font:normal normal 16px 'Tinos', Open Sans, Helvetica, sans-serif; color: @blue-dark}
 .left{float: left;}
 .right{float: right;}
+a:focus{outline: none;}
 
 header{
   .head{
@@ -79,6 +80,7 @@ header{
           background: @blue;
         }
       }
+      li.active a, li>a:focus, li>a:hover {background: @blue;}
     }
     .navbar{margin: 0;}
     .navbar-toggle {border-color: @white;}
@@ -110,6 +112,7 @@ header{
       text-align: center;
       padding: 0; margin: 0;
       position: relative;
+      &:hover{background: @white;}
       a{color: @blue-light;}
       .img{
         display: block;
@@ -137,15 +140,20 @@ header{
   .item{
     margin: 30px auto;
   }
-  //.description{margin-left: 10%}
-  .name{
-    font-size: 28px;
+  .description{
+    p{margin-bottom: 0}
   }
-  .price{
-    span{font-size: 28px;}
+  p.name{
+    font-size: 28px;
+    text-decoration: underline;
+    margin-bottom: 20px;
+  }
+  p.price{
+    margin: 15px 0;
+    span{font-size: 28px; }
   }
   img{max-width: 100%;}
-  .btn-main{width: 100%}
+  //.btn-main{width: 100%}
 }
 
 .text-block{

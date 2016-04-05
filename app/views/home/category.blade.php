@@ -33,7 +33,7 @@
                    <div class="description">
                        <p class="name">Lady Ola</p>
                        {{--<p>Команда: 3 человека</p>--}}
-                       <p>Количество пассажиров: 60 человек</p>
+                       <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
                        <p>Неограниченный район плавания</p>
                        {{--<p>Скорость хода: 15-17 узлов</p>--}}
                        <p class="price"><span>1500</span> руб/час</p>
@@ -49,7 +49,7 @@
             <div class="container-80">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
-                        <h3>Почему становится популярным прокат катеров?</h3>
+                        <h2>Почему становится популярным прокат катеров?</h2>
                     </div>
                     <div class="col-xs-12 col-sm-6">
                         <p>
