@@ -41,7 +41,7 @@
 
 
                 @foreach($posts as $post)
-                    
+
                     <div class="item">
                         {{ $post->text  }}
                     </div>
