@@ -14,7 +14,7 @@ class Item extends Eloquent
 	    return $this->belongsToMany('Property');
 	  }
 	  
-	public function galleries()
+	public function images()
 	  {
 	    return $this->hasMany('ItemImage');
 	  }

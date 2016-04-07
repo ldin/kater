@@ -102,7 +102,7 @@
     </div>
     {{ Form::close() }}
 </div>
-
+ @include('admin.post-item')
  @include('admin.post-gallery')
 
 @stop

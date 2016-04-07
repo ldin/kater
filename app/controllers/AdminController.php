@@ -68,12 +68,14 @@ class AdminController extends BaseController {
         else if(is_numeric($id)||$id=='add'){
             $post = Post::find($id);
             $galleries = Gallery::where('post_id', $id)->get();
+            $items = Post::find($id)->items;
 
             $parent[0]= '';
             foreach ($posts as $value) {
                 if($value->id!=$id){$parent[$value['id']]= $value['name'];}
             }
             $view['galleries'] = $galleries;
+            $view['items'] = $items;
             $view['parent'] = $parent;
             $view['row'] = $post;
 
@@ -319,6 +321,26 @@ class AdminController extends BaseController {
                     ->with('success', 'Изменения сохранены');
         }
 
+    public function getItem($parent_id, $id)
+        {
+            $item = Item::find($id);
+            $parents = Post::where('type_id', 1)->lists('name', 'id');
+            $property = Property::get();
+            $images = [];
+            if(is_numeric($id)){
+                $images = Item::find($id)->images;
+            }
+
+            $view = array(
+                'row' => $item,
+                'parents' => $parents,
+                'images' => $images,
+                'property' => $property,
+                'parent_id' => $parent_id,
+             );
+
+            return View::make('admin.item', $view);
+        }
         //карта сайта
 
         public function getCreateSitemap(){

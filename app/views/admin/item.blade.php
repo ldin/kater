@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('sidebar')
-    @include('admin.post-menu')
+    @ include('admin.post-menu')
 @stop
 
 @section('content')
@@ -10,7 +10,7 @@
 <h3><i class="glyphicon glyphicon-list-alt"></i> Страница</h3>
 <br>
 
-{{ Form::open(array('url' => 'admin/content/item/'.(isset($item_id)?$item_id:'add').'/'.(isset($row['id'])?$row['id']:'') , 'class' => 'form-group', 'files' => true)) }}
+{{ Form::open(array('url' => 'admin/content/item/'.(isset($parent_id)?$parent_id:'add').'/'.(isset($row['id'])?$row['id']:'') , 'class' => 'form-group', 'files' => true)) }}
 
     <div class="tab-content">
         <div class="form-group {{ ($errors->first('name')) ? 'has-error' : '' }}">
@@ -34,12 +34,8 @@
 
         <div class="row">
             <div class="form-group col-sm-6 col-xs-12">
-                {{ Form::label('selectType', 'Отображать в разделе') }}
-                {{ Form::select('type_id', $type_page, $type_id, array('class' => 'form-control ', 'id'=>'selectType'))}}
-            </div>
-            <div class="form-group col-sm-6 col-xs-12">
                 {{ Form::label('selectParent', 'Родительская категория') }}
-                {{ Form::select('parent', $parent, (isset($row->parent)?$row->parent:''), array('class' => 'form-control', 'id'=>'selectParent'))}}                
+                {{ Form::select('parent', $parents, (isset($parent_id)?$parent_id:''), array('class' => 'form-control', 'id'=>'selectParent'))}}
             </div>
         </div>
 
@@ -95,7 +91,7 @@
         <br />
         {{ Form::label('', '') . Form::submit('Сохранить', array( 'class' => 'btn btn-success')) }}
         @if(isset($row['id']))
-              {{ HTML::link('/admin/delete/page/'.$type_id.'/'.$row['id'], 'Удалить раздел', array('class' => 'btn btn-danger', 'onClick' =>"return window.confirm('Вы уверены что хотите удалить статью?')")) }}
+              {{ HTML::link('/admin/delete/page/'.$parent_id.'/'.$row['id'], 'Удалить раздел', array('class' => 'btn btn-danger', 'onClick' =>"return window.confirm('Вы уверены что хотите удалить статью?')")) }}
         @endif
 
     </div>
