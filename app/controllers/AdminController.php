@@ -47,6 +47,7 @@ class AdminController extends BaseController {
                 'page'=>'Текст',
                 'news'=>'Новости',
                 'gallery'=>'Галерея',
+                'contact'=>'Контакты',
         );
 
         //добавляем категорию
