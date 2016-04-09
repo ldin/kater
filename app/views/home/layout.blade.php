@@ -88,7 +88,8 @@
     </div>
     <footer>
         <div id="footerMap">
-            <script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=SLLPxyPGVQ5OzL0vjZn6TfTJYpzUEvqF&width=100%&height=420&lang=ru_RU&sourceType=constructor"></script>
+            {{--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1996.8848467969697!2d30.2433702707007!3d59.96723360466857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x469636c024405819%3A0x33572844a1731c18!2z0K_RhdGCINC60LvRg9CxICLQmtGA0LXRgdGC0L7QstGB0LrQuNC5Ig!5e0!3m2!1sru!2sru!4v1460200155830" width="100%" height="420" frameborder="0" style="border:0" allowfullscreen></iframe>--}}
+            {{--<script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=SLLPxyPGVQ5OzL0vjZn6TfTJYpzUEvqF&width=100%&height=420&lang=ru_RU&sourceType=constructor"></script>--}}
         </div>
         <div class="container">
             <div class="row text-center">
@@ -112,6 +113,8 @@
 
 {{ HTML::script('/js/lib/jquery-1.11.3.min.js') }}
 {{ HTML::script('/js/lib/bootstrap.min.js') }}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
 
 {{ HTML::script('/js/main.min.js') }}
 @yield('scripts')
