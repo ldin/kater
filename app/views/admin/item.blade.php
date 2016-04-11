@@ -1,16 +1,30 @@
 @extends('admin.layout')
 
 @section('sidebar')
-    @ include('admin.post-menu')
+    <h4><i class="glyphicon glyphicon-arrow-left"></i>  <a href="/admin/content/1/{{$post_id}}">вернуться</a></h4>
+    <p>Объекты в категории:</p>
+    @if(isset($posts) )
+        <ul class="nav menu">
+            @foreach ($posts as $key => $post)
+                <li class="dropdown  {{ (Request::is('admin/item/'.$post->post_id.'/'.$post->id)) ? 'active' : '' }}" >
+                    {{ HTML::link('admin/item/'.$post->post_id.'/'.$post->id, $post->name) }}
+                </li>
+            @endforeach
+        </ul>
+    @endif
+    <p><br>
+        <?php echo HTML::decode(HTML::link('/admin/item/'.$post_id.'/add', '<i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить', array('class'=>'addNews'))); ?>
+    </p>
+
 @stop
 
 @section('content')
 <div>
 
-<h3><i class="glyphicon glyphicon-list-alt"></i> Страница</h3>
+<h3><i class="glyphicon glyphicon-list-alt"></i> Объект</h3>
 <br>
 
-{{ Form::open(array('url' => 'admin/content/item/'.(isset($parent_id)?$parent_id:'add').'/'.(isset($row['id'])?$row['id']:'') , 'class' => 'form-group', 'files' => true)) }}
+{{ Form::open(array('url' => 'admin/item/'.(isset($post_id)?$post_id:'add').'/'.(isset($row['id'])?$row['id']:'') , 'class' => 'form-group', 'files' => true)) }}
 
     <div class="tab-content">
         <div class="form-group {{ ($errors->first('name')) ? 'has-error' : '' }}">
@@ -35,7 +49,7 @@
         <div class="row">
             <div class="form-group col-sm-6 col-xs-12">
                 {{ Form::label('selectParent', 'Родительская категория') }}
-                {{ Form::select('parent', $parents, (isset($parent_id)?$parent_id:''), array('class' => 'form-control', 'id'=>'selectParent'))}}
+                {{ Form::select('post_id', $parents, (isset($post_id)?$post_id:''), array('class' => 'form-control', 'id'=>'selectParent'))}}
             </div>
         </div>
 
@@ -80,25 +94,34 @@
             </div>
         </div>
 
+        <p><label>Свойства:</label></p>
+        <div class="form-group col-xs-11 col-xs-offset-1">
+        @foreach($properties as $prop)
+                {{ Form::label($prop->slug, $prop->name) }}
+                {{ Form::text('prop['.$prop->id.']', '', array('class'=>'form-control', 'id'=>'inputName')); }}
+
+            @endforeach
+        </div>
+
         <div class="form-group">
-            {{ Form::label('description') }}
-            {{ Form::text('description', (isset($row->description)?$row->description:''), array('class' => 'form-control')); }}
+            {{ Form::label('seo_description') }}
+            {{ Form::text('seo_description', (isset($row->seo_description)?$row->seo_description:''), array('class' => 'form-control')); }}
         </div>
         <div class="form-group">
-            {{ Form::label('keywords') }}
-            {{ Form::text('keywords', (isset($row->keywords)?$row->keywords:''), array('class' => 'form-control')); }}
+            {{ Form::label('seo_keywords') }}
+            {{ Form::text('seo_keywords', (isset($row->seo_keywords)?$row->seo_keywords:''), array('class' => 'form-control')); }}
         </div>
         <br />
         {{ Form::label('', '') . Form::submit('Сохранить', array( 'class' => 'btn btn-success')) }}
         @if(isset($row['id']))
-              {{ HTML::link('/admin/delete/page/'.$parent_id.'/'.$row['id'], 'Удалить раздел', array('class' => 'btn btn-danger', 'onClick' =>"return window.confirm('Вы уверены что хотите удалить статью?')")) }}
+              {{ HTML::link('/admin/delete/page/'.$post_id.'/'.$row['id'], 'Удалить раздел', array('class' => 'btn btn-danger', 'onClick' =>"return window.confirm('Вы уверены что хотите удалить статью?')")) }}
         @endif
 
     </div>
     {{ Form::close() }}
 </div>
 
- @include('admin.post-gallery')
+
 
 @stop
 

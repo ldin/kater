@@ -34,7 +34,7 @@
                 {{--<h1>Новости</h1>--}}
 
                 @foreach($posts as $post)
-                <div class="news-item col-xs-12 col-sm-6 col-md-4">
+                <div class="news-item col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="part img" style="background-image: url('/upload/image/small/{{$post->image}}');">
                     </div>
                     <p class="date">{{ date( 'd.m.Y', strtotime($post->created_at)) }}</p>

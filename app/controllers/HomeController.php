@@ -94,6 +94,10 @@ class HomeController extends BaseController {
 
                 $galleries = Gallery::where('post_id', $row->id)->get();
             }
+            if($type_post->template=='category' && $slug == ''){
+//                $row = $posts[0];
+                return Redirect::to($type.'/'. $posts[0]->slug);
+            }
         }
 
 //        var_dump('<pre>',$posts);

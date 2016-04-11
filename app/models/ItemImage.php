@@ -3,7 +3,7 @@ use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class ItemImage extends Eloquent
 {
-    protected $table = 'item-image';
+    protected $table = 'item_image';
 
 	public function post()
 	{

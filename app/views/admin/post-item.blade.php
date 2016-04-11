@@ -6,13 +6,12 @@
 	@if(!empty($items))
 		@foreach($items as $item)
 
-			<div class="col-xs-12 col-sm-3" id="image-{{ $image->id }}">
+			<div class="col-xs-12 col-sm-3">
 				<a href="/admin/item/{{$row->id}}/{{$item->id}}">
 					<p>{{ $item->name }}</p>
 				</a>
 
 			</div>	
-			<hr>
 		@endforeach
 	@endif
 

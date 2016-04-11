@@ -12,7 +12,7 @@ class CreateItemImageTable extends Migration
      */
     public function up()
     {
-        Schema::create('item-image', function (Blueprint $table) {
+        Schema::create('item_image', function (Blueprint $table) {
             $table->increments('id');
             $table->smallInteger('item_id');
             $table->string('src');
@@ -29,6 +29,6 @@ class CreateItemImageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('item-image');
+        Schema::drop('item_image');
     }
 }

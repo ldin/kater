@@ -47,6 +47,12 @@
 
 @stop
 
+@section('footerMap')
+    <div id="footerMap2">
+        <script type="text/javascript" charset="utf-8" src="https://api-maps.yandex.ru/services/constructor/1.0/js/?sid=SLLPxyPGVQ5OzL0vjZn6TfTJYpzUEvqF&width=100%&height=420&lang=ru_RU&sourceType=constructor"></script>
+    </div>
+@stop
+
 @section('scripts')
 
 @stop

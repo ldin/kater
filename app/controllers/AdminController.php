@@ -322,11 +322,12 @@ class AdminController extends BaseController {
                     ->with('success', 'Изменения сохранены');
         }
 
-    public function getItem($parent_id, $id)
+    public function getItem($post_id, $id='')
         {
             $item = Item::find($id);
+            $posts = Item::where('post_id', $post_id)->get();
             $parents = Post::where('type_id', 1)->lists('name', 'id');
-            $property = Property::get();
+            $properties = Property::get();
             $images = [];
             if(is_numeric($id)){
                 $images = Item::find($id)->images;
@@ -336,11 +337,56 @@ class AdminController extends BaseController {
                 'row' => $item,
                 'parents' => $parents,
                 'images' => $images,
-                'property' => $property,
-                'parent_id' => $parent_id,
+                'properties' => $properties,
+                'post_id' => $post_id,
+                'posts' => $posts,
              );
 
             return View::make('admin.item', $view);
+        }
+
+    public function postItem($post_id='add', $id='')
+        {
+            $all = Input::all();
+            if(!$all['slug']) {$all['slug'] = BaseController::ru2Lat($all['title']);}
+
+            $validator = Validator::make($all, Item::rules($id));
+            if ( $validator -> fails() ) {
+                return Redirect::to('/admin/item/'.$post_id.'/'.$id)
+                        ->withErrors($validator)
+                        ->withInput()
+                        ->with('error', 'Ошибка');
+            }
+
+            $data = [
+                'post_id'=> $all['post_id'],
+                'name'=> $all['name'],
+                'title'=> $all['title'],
+                'slug'=> $all['slug'],
+                'text'=> $all['text'],
+                'status'=>  isset($all['status'])?true:false,
+                'order'=> $all['order'],
+                'seo_description'=> $all['seo_description'],
+                'seo_keywords'=> $all['seo_keywords'],
+
+            ];
+            $post = Item::firstOrNew(['id'=>$id]);
+            $post->fill($data);
+            $post->save();
+
+
+//            if(isset($all['image'])){
+//                $post->image = AdminController::saveImage($all['image'], 'upload/image/', 250);
+//            }
+//
+//            $post->save();
+
+        //add properies
+//        $post->properties()->attach([1 => ['text'=>'30m']]);
+
+
+            return Redirect::to('/admin/item/'.$post_id.'/'.$post->id)
+                    ->with('success', 'Изменения сохранены');
         }
         //карта сайта
 
