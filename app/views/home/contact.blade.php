@@ -13,7 +13,9 @@
             <h1>{{ $type->name }}</h1>
 
             <div class="col-xs-12 col-sm-5 col-sm-offset-1" >
+
                 <form method="POST" action="/form-request"  role="form" class="contact-form">
+                    <h3 class="text-center">Напишите нам</h3>
                     <div class="form-group">
                         <label for="inputName" class="sr-only">Имя</label>
                         <input type="text" name="name" class="form-control" id="inputName" placeholder="Ваше имя" required>

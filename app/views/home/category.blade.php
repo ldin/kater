@@ -38,7 +38,7 @@
                                <p>Неограниченный район плавания</p>
                                {{--<p>Скорость хода: 15-17 узлов</p>--}}
                                <p class="price"><span>1500</span> руб/час</p>
-                               <p class="text-center"><a class="btn btn-main">Арендовать</a></p>
+                               <p><a class="btn btn-main">Арендовать</a></p>
                           </div>
                      </div>
                 @endforeach
