@@ -191,7 +191,7 @@ class AdminController extends BaseController {
             
             if(!empty($all['image'])){
                 $path='upload/gallery/'.$post_id.'/';
-                $filename = AdminController::saveImage($all['image'], $path, 250);
+                $filename = AdminController::saveImage($all['image'], $path, null, 250);
                 $post->image = $path.$filename;
                 $post->small_image = $path.'small/'.$filename;
             }
@@ -200,7 +200,7 @@ class AdminController extends BaseController {
                     ->with('success-img'.$image_id, 'Изменения сохранены');
         }
 
-    public function saveImage( $object, $path, $sm_wh='300'){
+    public function saveImage( $object, $path, $sm_wh=null, $sm_hv=null){
         if(empty($object) || empty($path)){return;}
 
         $filename = Input::file('image')->getClientOriginalName();
@@ -211,7 +211,7 @@ class AdminController extends BaseController {
         }
         Input::file('image')->move($path, $filename);
 
-        Image::make($path.$filename)->resize($sm_wh, null, function ($constraint) {
+        Image::make($path.$filename)->resize($sm_wh, $sm_hv, function ($constraint) {
             $constraint->aspectRatio();
         })->save($path_sm.$filename);
 
