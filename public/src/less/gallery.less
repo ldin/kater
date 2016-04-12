@@ -1,80 +1,11 @@
-/* ------------- Контейнер с адаптивными блоками------------- */
-.masonry {
-    margin: 1.5em 0;
-    padding: 0;
-    column-gap: 1.5em; /* Общее расстояние между колонками */
-    font-size: .85em;
-    -moz-column-gap: 1.5em; /* Расстояние между колонками для Firefox */
-    -webkit-column-gap: 1.5em; /* Расстояние между колонками  для Safari, Chrome и iOS */
-}
+.masonry{
 
-body .fancybox-overlay {
-    background: rgba(51,68,102,0.71);
-}
- 
-/* Элементы в виде плиток с содержанием */
-.item {
-    display: inline-block;
-    background: #fff;
-    padding: 0;
-    margin: 0 0 1.5em;
-    width: 100%;
-}
-
-/* Стили картинок, видое и фреймов внутри адаптивных плиток */
-img, iframe {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
- 
-/* Стили ссылок внутри плиток */
-.item a {
-    text-decoration: none;
-    color: #000;
-}
- 
-/* Стили ссылок при наведении */
-.item a:hover {
-color: #a67e4a;    
-text-decoration: underline;
-}
- 
-/* Медиа-запросы для различных размеров адаптивного макета */
-@media only screen and (min-width: 400px) {
-    .masonry {
-        -moz-column-count: 2;
-        -webkit-column-count: 2;
-        column-count: 2;
-    }
-}
- 
-@media only screen and (min-width: 700px) {
-    .masonry {
-        -moz-column-count: 3;
-        -webkit-column-count: 3;
-        column-count: 3;
-    }
-}
- 
-@media only screen and (min-width: 900px) {
-    .masonry {
-        -moz-column-count: 4;
-        -webkit-column-count: 4;
-        column-count: 4;
-    }
-}
- 
-@media only screen and (min-width: 1100px) {
-    .masonry {
-        -moz-column-count: 4;
-        -webkit-column-count: 4;
-        column-count: 4;
-    }
-}
- 
-@media only screen and (min-width: 1280px) {
-    .wrapper {
-        width: 1260px;
+    .item a{
+        width: 250px;
+        height: 250px;
+        float: left;
+        margin: 10px;
+        background: no-repeat center;
+        background-size: cover;
     }
 }

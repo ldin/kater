@@ -46,19 +46,19 @@
                         {{ $post->text  }}
                     </div>
                     @if(!empty($post->gallerie))
-                        <!-- Контейнер с адаптиными блоками -->
+
                         <div class="masonry">
-                            <!-- Адаптивные блоки с содержанием -->
+
                             @foreach($post->gallerie as $image)
                                 <div class="item">
-                                  <a class="fancybox" rel="gallery" href="{{ $image->image }}" title="{{ $image->text }}">
-                                    {{ HTML::image($image->small_image, $image->alt) }}
+                                  <a class="fancybox" rel="gallery" href="{{ $image->image }}" title="{{ $image->text }}" style="background-image: url({{$image->small_image}})">
+{{--                                    {{ HTML::image($image->small_image, $image->alt) }}--}}
                                   </a>
                                 </div>
                             @endforeach
-                            <!-- Конец адаптивных блоков с содержанием -->
+
                         </div>
-                        <!-- Конец контейнера с адаптивными блоками -->
+
                     @endif
                 @endforeach
 
