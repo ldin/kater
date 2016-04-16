@@ -167,7 +167,7 @@ footer{
   line-height: 14px;
   a{color: @blue-dark}
   #footerMap{
-    background: @gray-light url("/images/bg/bg-map.jpg") no-repeat center;
+    background: @gray-light no-repeat center;
     background-size: cover;
     position: relative;
     height: 420px;
@@ -180,6 +180,15 @@ footer{
     background: url("/images/logo-sm.png") no-repeat;
     margin: 20px auto;
   }
+}
+@media(max-width: 500px){
+  footer #footerMap{background-image: url("/images/map/map_500_2.jpg"); }
+}
+@media(min-width: 500px) and (max-width:1000px){
+  footer #footerMap{background-image: url("/images/map/map_1000.jpg");}
+}
+@media(min-width: 1000px){
+  footer #footerMap{background-image: url("/images/map/map_3000.jpg");}
 }
 
 #content-news{

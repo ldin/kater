@@ -56,6 +56,7 @@
                                   </a>
                                 </div>
                             @endforeach
+                            <div class="clearfix"></div>
 
                         </div>
 
