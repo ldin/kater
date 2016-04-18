@@ -53,7 +53,7 @@ class Item extends Eloquent
 	  
 	public function properties()
 	  {
-	    return $this->belongsToMany('Property');
+	    return $this->belongsToMany('Property')->withPivot('text');
 	  }
 	  
 	public function images()

@@ -327,7 +327,7 @@ class AdminController extends BaseController {
             $item = Item::find($id);
             $posts = Item::where('post_id', $post_id)->get();
             $parents = Post::where('type_id', 1)->lists('name', 'id');
-            $properties = Property::get();
+            $properties = Property::lists('name', 'id');
             $images = [];
             if(is_numeric($id)){
                 $images = Item::find($id)->images;
@@ -370,24 +370,48 @@ class AdminController extends BaseController {
                 'seo_keywords'=> $all['seo_keywords'],
 
             ];
+            if(isset($all['image'])){
+                $data['image'] = AdminController::saveImage($all['image'], 'upload/image/item/', 250);
+            }
             $post = Item::firstOrNew(['id'=>$id]);
             $post->fill($data);
             $post->save();
 
 
-//            if(isset($all['image'])){
-//                $post->image = AdminController::saveImage($all['image'], 'upload/image/', 250);
-//            }
-//
-//            $post->save();
+            //add properties
+            var_dump('<pre>',$all['properties'], $post->properties); //die();
+            if(!empty($all['properties'])) {
+                foreach ($all['properties'] as $prop) {
 
-        //add properies
-//        $post->properties()->attach([1 => ['text'=>'30m']]);
+                    if(!empty($prop['id'])) {
+                        //var_dump( $post->properties[ $prop['id'] ] );
+                        if (!empty($post->properties[$prop['id']])) {
+                            var_dump('success', $prop);
+                            //$post->properties()->updateExistingPivot($prop['id'], ['text' => $prop['text']] );
+                        } else {
+                            var_dump('lol', $prop);
+//                            $post->properties()->attach([$prop['id'] => ['text' => $prop['text']]]);
+                        }
+                    }
+                }die();
+            }
+//        var_dump('<pre>',$all['properties']); die();
 
 
             return Redirect::to('/admin/item/'.$post_id.'/'.$post->id)
                     ->with('success', 'Изменения сохранены');
         }
+
+        public function postImageDropzone($type, $id){
+//            var_dump(Input::file('file')); die();
+            //$file = Input::file('file');
+            if($type=='item'){
+                $data = Item::find($id);
+                $file = AdminController::saveImage(Input::file('file'), 'upload/image/item/'.$id, 250);
+                $data->images()->attach($file);
+            }
+        }
+
         //карта сайта
 
         public function getCreateSitemap(){

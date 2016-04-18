@@ -35,3 +35,8 @@
 .menu ul li a:hover{ background: #e4e4e4;}
 
 #gallery img{max-height: 150px;}
+
+#my-dropzone{
+    border: 1px solid #ccc;
+    padding: 20px;
+}
