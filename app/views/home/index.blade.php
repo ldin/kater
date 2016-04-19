@@ -222,7 +222,7 @@
                         @endforeach
                     @endif
                 </div>
-                <p><a href="#">Перейти в галерею</a></p>
+                <p class="text-right"><a href="#" class="link">Перейти в галерею</a></p>
             </div>
         </div>
         <div id="description" >
