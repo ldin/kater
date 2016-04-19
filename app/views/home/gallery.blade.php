@@ -103,6 +103,9 @@
             thumbs  : {
               width : 50,
               height  : 50
+            },
+            overlay: {
+              locked: false
             }
           }
       });

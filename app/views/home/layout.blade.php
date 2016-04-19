@@ -81,7 +81,7 @@
                 </nav>
             </div>
         </header>
-
+        @yield('slider')
         <main>
             @yield('content')
         </main>

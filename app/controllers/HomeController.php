@@ -35,13 +35,13 @@ class HomeController extends BaseController {
 //                $preview = HomeController::previewFirstSimbol($post->text, 500);
 //                $post->preview_text = $preview['text'];
 //            }
-//        $view = array(
-//            'slides'=>$slides,
+        $gallery = Gallery::orderBy('created_at', 'desc')->take(6)->get();
+        $view = array(
+            'gallery'=>$gallery,
 //            'news'=>$news,
-//        );
-//
-//        return View::make('home.index', $view);
-        return Redirect::to('/main');
+        );
+
+        return View::make('home.index', $view);
     }
 
     public function getPage($type, $slug=''){
