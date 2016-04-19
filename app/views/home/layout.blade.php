@@ -22,7 +22,7 @@
 
     @yield('header')
 
-     <link href="/css/main.css?03" rel="stylesheet">
+     <link href="/css/main.css?04" rel="stylesheet">
  </head>
 
 <body>
