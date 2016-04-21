@@ -106,7 +106,7 @@
                     <div class="form-group" data-type="prop" data-prop_id="{{$prop->id}}">
                     {{ Form::label($prop->slug, $prop->name) }}
                     {{ Form::hidden('properties['.$key.'][id]', $prop->id) }}
-                    {{ Form::text('properties['.$key.'][text]', $prop->pivot->text, array('class'=>'form-control')); }}
+                    {{ Form::textarea('properties['.$key.'][text]', $prop->pivot->text, array('class'=>'form-control', 'rows'=>1)); }}
                     </div>
                 @endforeach
             @endif
@@ -136,12 +136,22 @@
 
     @if(!empty($row))
     <h3>Дополнительные изображения</h3>
-    <form action="/admin/image-dropzone/item/{{$row->id}}" class="dropzone" id="my-dropzone" method="POST" files="true">
-        <div class="dz-message">
-            <h4>Загрузите фото</h4>
-            <p>или кликните сюда</p>
-        </div>
-    </form>
+        @if(!empty($row->images[0]))
+            <div class="row">
+            @foreach($row->images as $key => $img)
+                <div class="">
+                    {{ HTML::image('/upload/image/item/'.$row->id.'/small/'.$img->src, 'img', ['style'=>"float:left; margin:10px;"]) }}
+                </div>
+            @endforeach
+            </div>
+        @endif
+        <form action="/admin/image-dropzone/item/{{$row->id}}" class="dropzone" id="my-dropzone" method="POST" files="true">
+            <div class="dz-message">
+                <h4>Загрузите фото</h4>
+                <p>или кликните сюда</p>
+            </div>
+        </form>
+        <br><br>
     @endif
 </div>
 

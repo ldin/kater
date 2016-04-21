@@ -371,6 +371,7 @@ class AdminController extends BaseController {
 
             ];
             if(isset($all['image'])){
+                //var_dump('<pre>',$all['image']); die();
                 $data['image'] = AdminController::saveImage($all['image'], 'upload/image/item/', 250);
             }
             $post = Item::firstOrNew(['id'=>$id]);
@@ -379,36 +380,33 @@ class AdminController extends BaseController {
 
 
             //add properties
-            var_dump('<pre>',$all['properties'], $post->properties); //die();
             if(!empty($all['properties'])) {
                 foreach ($all['properties'] as $prop) {
-
                     if(!empty($prop['id'])) {
-                        //var_dump( $post->properties[ $prop['id'] ] );
-                        if (!empty($post->properties[$prop['id']])) {
-                            var_dump('success', $prop);
-                            //$post->properties()->updateExistingPivot($prop['id'], ['text' => $prop['text']] );
+                        if (!empty($post->properties->contains($prop['id'])) ) {
+                            $post->properties()->updateExistingPivot($prop['id'], ['text' => $prop['text']] );
                         } else {
-                            var_dump('lol', $prop);
-//                            $post->properties()->attach([$prop['id'] => ['text' => $prop['text']]]);
+                            $post->properties()->attach([$prop['id'] => ['text' => $prop['text']]]);
                         }
                     }
-                }die();
+                }
             }
-//        var_dump('<pre>',$all['properties']); die();
-
 
             return Redirect::to('/admin/item/'.$post_id.'/'.$post->id)
                     ->with('success', 'Изменения сохранены');
         }
 
-        public function postImageDropzone($type, $id){
-//            var_dump(Input::file('file')); die();
+        public function postImageDropzone($type, $id)
+        {
+            $all = Input::all();
+
             //$file = Input::file('file');
-            if($type=='item'){
-                $data = Item::find($id);
-                $file = AdminController::saveImage(Input::file('file'), 'upload/image/item/'.$id, 250);
-                $data->images()->attach($file);
+            if ($type == 'item') {
+                $item = Item::find($id);
+                $file = AdminController::saveImage($all['image'], 'upload/image/item/' . $id . '/', 250);
+                $image = new ItemImage(['src'=>$file]);
+                $item->images()->save($image);
+
             }
         }
 
