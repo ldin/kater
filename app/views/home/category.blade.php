@@ -30,7 +30,9 @@
                 <div id="items" class="row">
                 @foreach($row->items as $item)
                      <div class="col-xs-12 col-sm-3 item">
-                          <img src="/images/princess421.png" alt="">
+                         @if(isset($item->image)&&($item->image))
+                              {{ HTML::image('/upload/image/item/small/'.$item->image, 'img') }}
+                         @endif
                           <div class="description">
                                <p class="name">{{$item->name}}</p>
                                {{--<p>Команда: 3 человека</p>--}}
