@@ -327,7 +327,7 @@ class AdminController extends BaseController {
         {
             $item = Item::find($id);
             $posts = Item::where('post_id', $post_id)->get();
-            $parents = Post::where('type_id', 1)->lists('name', 'id');
+            $parents = Post::where('type_id', 3)->lists('name', 'id');
             $properties = Property::lists('name', 'id');
             $images = [];
             if(is_numeric($id)){

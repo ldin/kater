@@ -9,15 +9,18 @@
 			<div class="col-xs-12 col-sm-3">
 				<a href="/admin/item/{{$row->id}}/{{$item->id}}">
 					<p>{{ $item->name }}</p>
-				</a>
+					{{ HTML::image('/upload/image/item/small/'.$item->image, 'img', ['style'=>'max-width:100%;']) }}
 
-			</div>	
+				</a>
+			</div>
+
 		@endforeach
 	@endif
 
-		<a href="/admin/item/{{$row->id}}/add" class="addNews">
-			<i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить объект
-		</a>
+	<div class="clearfix"></div><br><br>
+	<a href="/admin/item/{{$row->id}}/add" class="addNews">
+		<i class="glyphicon glyphicon-plus"></i>&nbsp;Добавить объект
+	</a>
 
 
 

@@ -36,6 +36,8 @@
 
 #gallery img{max-height: 150px;}
 
+.border{border: 1px solid #ccc; }
+
 #my-dropzone{
     border: 1px solid #ccc;
     padding: 20px;
