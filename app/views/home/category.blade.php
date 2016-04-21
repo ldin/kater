@@ -31,7 +31,7 @@
                 @foreach($row->items as $item)
                      <div class="col-xs-12 col-sm-3 item">
                          @if(isset($item->image)&&($item->image))
-                              {{ HTML::image('/upload/image/item/small/'.$item->image, 'img') }}
+                              {{ HTML::image('/upload/image/item/'.$item->image, 'img') }}
                          @endif
                           <div class="description">
                                <p class="name">{{$item->name}}</p>
