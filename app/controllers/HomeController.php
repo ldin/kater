@@ -37,9 +37,11 @@ class HomeController extends BaseController {
 //            }
         $gallery = Gallery::orderBy('created_at', 'desc')->take(6)->get();
         $categories = Post::where('type_id',3)->get(['slug', 'image', 'name', 'preview']);
+        $popular = Item::where('image','!=', '')->orderBy('created_at', 'desc')->take(4)->get();
         $view = array(
             'gallery'=>$gallery,
             'categories'=>$categories,
+            'popular'=>$popular,
         );
 
         return View::make('home.index', $view);

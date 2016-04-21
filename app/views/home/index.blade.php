@@ -38,151 +38,53 @@
             <div class="container-80">
                 <h2>Вы можете взять в аренду</h2>
                 <p>Путешествие или работа, необходимость добираться до места встречи с комфортом   или желание сделать необычный подарок -  это прекрасный повод обратиться в  Компанию «Numidal», которая предоставляет свои услуги под различные бизнес-задачи, будь то яхта на экономический форум или организация чартерных рейсов по России и за её пределами:</p>
-                <div class="row">
+                <div class="row items">
                     @if(!empty($categories))
-                        @foreach($categories as $cat)
-                            <div class="col-xs-6 col-sm-4 col-md-2">
-                                <a href="/rent/{{$cat->slug}}">
+                        <?php $k=0; ?>
+                        @foreach($categories as $k=>$cat)
+                            <div class="col-xs-6 col-sm-4 col-lg-2">
+                                <a href="/rent/{{$cat->slug}}" class="cat-item">
                                     <div class="img">
                                         {{HTML::image('/upload/image/'.$cat->image, $cat->name)}}
                                     </div>
                                     <p>{{$cat->preview}}</p>
                                 </a>
                             </div>
+                            <?php
+                               $k++;
+                               if(($k%2)==0) {echo('<div class="clearfix visible-xs-block"></div>'); }
+                               if(($k%3)==0) {echo('<div class="clearfix visible-sm-block visible-md-block"></div>'); }
+                            ?>
                         @endforeach
                     @endif
                 </div>
-                <div class="row">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="col-xs-2 active">
-                            <a href="#launch" aria-controls="launch" role="tab" data-toggle="tab">
-                                <div class="img">
-                                    <img src="/images/ico/cat-ico-4.png">
-                                </div>
-                                <p>Катер для экскурсий и деловых поездок</p>
-                            </a>
-                        </li>
-                        <li role="presentation" class="col-xs-2">
-                            <a href="#ships" aria-controls="ships" role="tab" data-toggle="tab">
-                                <div class="img">
-                                    <img src="/images/ico/cat-ico-4.png">
-                                </div>
-                                <p>Теплоход для прогулки по рекам и каналам Петербурга</p>
-                            </a>
-                        </li>
-                        <li role="presentation" class="col-xs-2">
-                            <a href="#sailboats" aria-controls="sailboats" role="tab" data-toggle="tab">
-                                <div class="img">
-                                    <img src="/images/ico/cat-ico-4.png">
-                                </div>
-                                <p>Парусник в Петербурге для впечатляющего отдыха</p>
-                            </a>
-                        </li>
-                        <li role="presentation" class="col-xs-2">
-                            <a href="#yacht" aria-controls="yacht" role="tab" data-toggle="tab">
-                                <div class="img">
-                                    <img src="/images/ico/cat-ico-4.png">
-                                </div>
-                                <p>Катер для экскурсий и деловых поездок</p>
-                            </a>
-                        </li>
-                        <li role="presentation" class="col-xs-2">
-                            <a href="#helicopter" aria-controls="helicopter" role="tab" data-toggle="tab">
-                                <div class="img">
-                                    <img src="/images/ico/cat-ico-4.png">
-                                </div>
-                                <p>Вертолет для бизнеса, экскурсий и охоты</p>
-                            </a>
-                        </li>
-                        <li role="presentation" class="col-xs-2">
-                            <a href="#aircraft" aria-controls="aircraft" role="tab" data-toggle="tab">
-                                <div class="img">
-                                    <img src="/images/ico/cat-ico-4.png">
-                                </div>
-                                <p>Самолет для путешествий по России и миру</p>
-                            </a>
-                        </li>
-                    </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="launch">
-                            <div id="items" class="row">
-                                <div class="col-xs-6 col-sm-3 item">
-                                    <img src="/images/princess421.png" alt="">
+                @if(!empty($popular))
+                    <h2>Самое популярное</h2>
+                    <div class="items" id="items">
+                        <div class="row">
+                            @foreach($popular as $item)
+                                <div class="col-xs-12 col-sm-3 item">
+                                    @if(isset($item->image)&&($item->image))
+                                        {{ HTML::image('/upload/image/item/'.$item->image, 'img') }}
+                                    @endif
                                     <div class="description">
-                                        <p class="name">Crownline</p>
+                                        <p class="name">{{$item->name}}</p>
+                                        {{--<p>Команда: 3 человека</p>--}}
                                         <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
                                         <p>Неограниченный район плавания</p>
+                                        {{--<p>Скорость хода: 15-17 узлов</p>--}}
                                         <p class="price"><span>1500</span> руб/час</p>
                                         <p><a class="btn btn-main">Арендовать</a></p>
                                     </div>
                                 </div>
-                                <div class="col-xs-6 col-sm-3 item">
-                                    <img src="/images/princess421.png" alt="">
-                                    <div class="description">
-                                        <p class="name">Название45</p>
-                                        <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
-                                        <p>Неограниченный район плавания</p>
-                                        <p class="price"><span>1500</span> руб/час</p>
-                                        <p><a class="btn btn-main">Арендовать</a></p>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-3 item">
-                                    <img src="/images/princess421.png" alt="">
-                                    <div class="description">
-                                        <p class="name">Объект</p>
-                                        <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
-                                        <p>Неограниченный район плавания</p>
-                                        <p class="price"><span>1500</span> руб/час</p>
-                                        <p><a class="btn btn-main">Арендовать</a></p>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-3 item">
-                                    <img src="/images/princess421.png" alt="">
-                                    <div class="description">
-                                        <p class="name">Title45</p>
-                                        <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
-                                        <p>Неограниченный район плавания</p>
-                                        <p class="price"><span>1500</span> руб/час</p>
-                                        <p><a class="btn btn-main">Арендовать</a></p>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="ships">
-                            <div id="items" class="row">
-                                <div class="col-xs-6 col-sm-3 item">
-                                    <img src="/images/princess421.png" alt="">
-                                    <div class="description">
-                                        <p class="name">Объект</p>
-                                        <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
-                                        <p>Неограниченный район плавания</p>
-                                        <p class="price"><span>1500</span> руб/час</p>
-                                        <p><a class="btn btn-main">Арендовать</a></p>
-                                    </div>
-                                </div>
-                                <div class="col-xs-6 col-sm-3 item">
-                                    <img src="/images/princess421.png" alt="">
-                                    <div class="description">
-                                        <p class="name">Title45</p>
-                                        <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
-                                        <p>Неограниченный район плавания</p>
-                                        <p class="price"><span>1500</span> руб/час</p>
-                                        <p><a class="btn btn-main">Арендовать</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="sailboats">...</div>
-                        <div role="tabpanel" class="tab-pane fade" id="yacht">...</div>
-                        <div role="tabpanel" class="tab-pane fade" id="launch">...</div>
-                        <div role="tabpanel" class="tab-pane fade" id="launch">...</div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
+
         <div id="slide2" class="main-slides">
             <div class="container-80">
                 <p class="title">Великолепные панорамы,<br> как с обложки журнала</p>
@@ -225,6 +127,7 @@
                 </div>
             </div>
         </div>
+        <h2>Фотографии из жизни компании </h2>
         <div id="gallery" >
             <div class="container-80">
                 <div class="row">

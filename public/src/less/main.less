@@ -341,37 +341,29 @@ footer{
   }
   #rent{
     padding: 10px 0 50px;
-    .img{
-      width: 200px;
-      height: 200px;
-      background: @gray-light;
-      border-radius: 50%;
-      opacity: 0.5;
-      display: flex;
-      img{max-width: 80%; margin: auto}
-    }
-    .active .img, .nav-tabs li > a:hover .img{opacity: 1;}
-    .nav-tabs {
-      border: none;
-      li > a{border: none; padding: 0;}
-      li > a:hover{ background: none; }
-      & > .col-xs-2{padding: 0;}
-      p {
-        color: @blue-light;
-        font-size: 22px;
-        text-align: center;
+    .items{padding: 20px 0;}
+    .cat-item {
+      text-decoration: none;
+      .img {
+        width: 200px;
+        height: 200px;
+        background: @gray-light;
+        border-radius: 50%;
+        opacity: 0.5;
+        display: flex;
+        img {
+          max-width: 80%;
+          margin: auto
+        }
       }
-      .active p{color: @blue-dark;}
-    }
-    @media (max-width: 1500px) {
-      .img{transform: scale(0.8) }
-    }
-    @media (max-width: 1160px) {
-      .img{transform: scale(0.6) translateX(-20%); }
-    }
-    @media (max-width: 840px) {
-      .img{transform: scale(0.4) translateX(-60%); }
-      .nav-tabs p{font-size: 16px;}
+      p {
+         color: @blue-light;
+         font-size: 22px;
+         text-align: center;
+      }
+      &:hover{
+        p{color: @blue-dark;}
+      }
     }
 
   }
