@@ -39,6 +39,20 @@
                 <h2>Вы можете взять в аренду</h2>
                 <p>Путешествие или работа, необходимость добираться до места встречи с комфортом   или желание сделать необычный подарок -  это прекрасный повод обратиться в  Компанию «Numidal», которая предоставляет свои услуги под различные бизнес-задачи, будь то яхта на экономический форум или организация чартерных рейсов по России и за её пределами:</p>
                 <div class="row">
+                    @if(!empty($categories))
+                        @foreach($categories as $cat)
+                            <div class="col-xs-6 col-sm-4 col-md-2">
+                                <a href="/rent/{{$cat->slug}}">
+                                    <div class="img">
+                                        {{HTML::image('/upload/image/'.$cat->image, $cat->name)}}
+                                    </div>
+                                    <p>{{$cat->preview}}</p>
+                                </a>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="row">
                     <!-- Nav tabs -->
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="col-xs-2 active">
@@ -294,6 +308,9 @@
                 }
               }
           });
+
+        $('.navbar-nav > li:first-child').addClass('active');
+
         });
 
       </script>

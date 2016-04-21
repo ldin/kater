@@ -111,6 +111,7 @@ class AdminController extends BaseController {
             $post->title = $all['title'];
             $post->slug = $all['slug'];
 
+            $post->preview = $all['preview'];
             $post->text = $all['text'];
             $post->parent = $all['parent'];
             $post->status = isset($all['status'])?true:false;

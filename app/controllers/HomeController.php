@@ -36,15 +36,20 @@ class HomeController extends BaseController {
 //                $post->preview_text = $preview['text'];
 //            }
         $gallery = Gallery::orderBy('created_at', 'desc')->take(6)->get();
+        $categories = Post::where('type_id',3)->get(['slug', 'image', 'name', 'preview']);
         $view = array(
             'gallery'=>$gallery,
-//            'news'=>$news,
+            'categories'=>$categories,
         );
 
         return View::make('home.index', $view);
     }
 
     public function getPage($type, $slug=''){
+
+        if($type=='main'){
+            return Redirect::to('/');
+        }
 
         $type_post = Type::where('type', $type)->first();
         $posts_child = $galleries = $posts = $row = array();

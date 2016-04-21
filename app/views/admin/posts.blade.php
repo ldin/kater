@@ -63,6 +63,11 @@
         </div>
 
         <div class="form-group">
+            {{ Form::label('preview', 'Preview', array('class'=>'control-label')) }}
+            {{ Form::text('preview', (isset($row->preview)?$row->preview:''), array('class' => 'form-control', 'id'=>'inputPreview')); }}
+        </div>
+
+        <div class="form-group">
             {{ Form::label('inputText', 'Текст') }}
             {{Form::textarea('text', (isset($row->text)?$row->text:''), array('class' => 'form-control ', 'id'=>'inputText')); }}
         </div>
