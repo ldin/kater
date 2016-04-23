@@ -120,7 +120,7 @@ class HomeController extends BaseController {
 //        $type = Type::where('type', $type_slug)->first();
 //        $post = Post::where('slug', $post_slug)->first();
         $item = Item::where('slug', $item_slug)->first();
-
+        $properties=[];
         foreach($item->properties as $property){
             $properties[$property->slug]['name']=$property->name;
             $properties[$property->slug]['text']=$property->pivot->text;
