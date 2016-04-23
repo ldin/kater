@@ -37,7 +37,7 @@ class HomeController extends BaseController {
 //            }
         $gallery = Gallery::orderBy('created_at', 'desc')->take(6)->get();
         $categories = Post::where('type_id',3)->get(['slug', 'image', 'name', 'preview']);
-        $popular = Item::where('image','!=', '')->orderBy('created_at', 'desc')->take(4)->get();
+        $popular = Item::where('image','!=', '')->orderBy('created_at', 'desc')->take(43.)->get();
         $view = array(
             'gallery'=>$gallery,
             'categories'=>$categories,
@@ -62,10 +62,8 @@ class HomeController extends BaseController {
         }
         if($type_post->template=='gallery'){
             $posts = Post::where('type_id',$type_post->id)->where('status',1)->where('parent',0)->orderBy('order', 'asc')->get();
-//            var_dump('<pre>',$t);
             foreach ($posts as $key => $post) {
                 $post->gallerie = Gallery::where('post_id', $post->id)->get();
-//                var_dump('<pre>',$post->galleries);
             }
         }
 
@@ -102,12 +100,10 @@ class HomeController extends BaseController {
                 $galleries = Gallery::where('post_id', $row->id)->get();
             }
             if($type_post->template=='category' && $slug == ''){
-//                $row = $posts[0];
                 return Redirect::to($type.'/'. $posts[0]->slug);
             }
         }
 
-//        var_dump('<pre>',$posts);
 
         $view = array(
             'type'=>$type_post,
@@ -117,6 +113,26 @@ class HomeController extends BaseController {
             'galleries' => $galleries,
         );
         return View::make('home.'.$type_post->template, $view);
+    }
+
+    public function getItem($type_slug, $post_slug,  $item_slug){
+
+//        $type = Type::where('type', $type_slug)->first();
+//        $post = Post::where('slug', $post_slug)->first();
+        $item = Item::where('slug', $item_slug)->first();
+
+        foreach($item->properties as $property){
+            $properties[$property->slug]['name']=$property->name;
+            $properties[$property->slug]['text']=$property->pivot->text;
+        }
+
+        $view = array(
+//            'type'=>$type_post,
+//            'posts'=>$posts,
+            'row' => $item,
+            'properties' => $properties,
+        );
+        return View::make('home.item', $view);
     }
 
     //превью новостей (первые $count символов из $data)

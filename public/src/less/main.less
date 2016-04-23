@@ -38,7 +38,7 @@ footer{min-height: 209px; margin-top: -209px;}
 html, body{font:normal normal 16px 'Tinos', Open Sans, Helvetica, sans-serif; color: @blue-dark}
 .left{float: left;}
 .right{float: right;}
-a:focus{outline: none;}
+a:focus, div:focus{outline: none;}
 
 .col-xs-1-5, .col-sm-1-5, .col-md-1-5, .col-lg-1-5 {
   position: relative;
@@ -173,7 +173,8 @@ header{
   .description{
     p{margin-bottom: 0}
   }
-  p.name{
+  .name{
+    color: @blue-dark;
     font-size: 28px;
     text-decoration: underline;
     margin-bottom: 20px;
@@ -246,13 +247,13 @@ footer{
   }
 }
 
-#contacts{
-  .contact-form{
-    background: #ebedf1;
-    padding: 10px 20px 50px;
-  }
+#contacts{}
 
+.contact-form{
+  background: #ebedf1;
+  padding: 10px 20px 50px;
 }
+
 
 @media(min-width: 3000px){
   .container-80{
@@ -294,13 +295,6 @@ footer{
     .title {left: 10%;}
   }
 }
-.ll {
-  color: #193341;
-  color: #2c5a71;
-  color: #29768a;
-  color: #406d80;
-  color: #3e606f;
-}
 
 //main page style
 .main-slides{
@@ -330,8 +324,8 @@ footer{
   }
   &#slide1{min-height: 510px;}
   &#slide2{text-align: right;}
-
 }
+
 #landing-page{
   font-size: 18px;
   h2{
@@ -407,4 +401,32 @@ footer{
 
 }
 
+#item-content{
+  padding: 30px 0;
+  #slick-main{
+    width: 100%;
+    height: 300px;
+  }
+  #slick-nav{
+    width: 100%;
+    height: 140px;
+    .image{
+      height: 140px;
+      background: no-repeat center;
+      background-size: cover;
+      border: 1px solid #fff;
+    }
+  }
+  img{max-width: 100%;}
+  .price{font-size: 36px;}
+  .guests{margin-top: -10px;}
+}
 
+.slick-arrow{
+  background: url("/images/ico/arrow.png") no-repeat;
+  width: 20px;
+  height: 35px;
+  &:hover{background: url("/images/ico/arrow.png") no-repeat;}
+  &.slick-prev{transform: scale(-1, 1); margin-top: -17px;}
+  &:before{content: '';}
+}

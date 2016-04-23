@@ -34,7 +34,7 @@ Route::get('/search/autocomplete/{type}/{id?}', 'HomeController@autocomplete');
 
 Route::get('/rate/{slug?}', 'HomeController@getRate');
 Route::get('/{type}/{slug?}', 'HomeController@getPage');
-
+Route::get('/{type}/{post}/{item}', 'HomeController@getItem');
 //Route::get('api/shows', 'ShowController@index');
 //
 //App::missing(function($exception)

@@ -30,11 +30,15 @@
                 <div id="items" class="row">
                 @foreach($row->items as $item)
                      <div class="col-xs-12 col-sm-3 item">
-                         @if(isset($item->image)&&($item->image))
-                              {{ HTML::image('/upload/image/item/'.$item->image, 'img') }}
-                         @endif
+                          <a href="{{ '/'.$type->type.'/'.$row->slug.'/'.$item->slug }}">
+                              @if(isset($item->image)&&($item->image))
+                                  {{ HTML::image('/upload/image/item/'.$item->image, 'img') }}
+                              @endif
+                              <p class="name">{{$item->name}}</p>
+                          </a>
+
                           <div class="description">
-                               <p class="name">{{$item->name}}</p>
+
                                {{--<p>Команда: 3 человека</p>--}}
                                <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
                                <p>Неограниченный район плавания</p>
@@ -47,26 +51,6 @@
                 </div>
             </div>
         @endif
-        {{--<div class="container-80">--}}
-            {{--<div id="items" class="row">--}}
-               {{--@for($i=0; $i<8; $i++)--}}
-
-               {{--<div class="col-xs-12 col-sm-3 item">--}}
-                   {{--<img src="/images/princess421.png" alt="">--}}
-                   {{--<div class="description">--}}
-                       {{--<p class="name">Lady Ola</p>--}}
-                       {{--<p>Команда: 3 человека</p>--}}
-                       {{--<p><i class="glyphicon glyphicon-user"></i> 60 человек</p>--}}
-                       {{--<p>Неограниченный район плавания</p>--}}
-                       {{--<p>Скорость хода: 15-17 узлов</p>--}}
-                       {{--<p class="price"><span>1500</span> руб/час</p>--}}
-                       {{--<p class="text-center"><a class="btn btn-main">Арендовать</a></p>--}}
-                   {{--</div>--}}
-               {{--</div>--}}
-
-               {{--@endfor--}}
-            {{--</div>--}}
-        {{--</div>--}}
 
         <div class="text-block">
             <div class="container-80">
