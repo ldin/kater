@@ -22,7 +22,7 @@
 
     @yield('header')
 
-     <link href="/css/main.css?04" rel="stylesheet">
+     <link href="/css/main.css?05" rel="stylesheet">
  </head>
 
 <body>
@@ -46,7 +46,7 @@
                                     </a>
                                 </p>
                             </div>
-                            <a href="" class="btn btn-main">Забронировать судно</a>
+                            <a href="" class="btn btn-main" data-toggle="modal" data-target="#reviewForm">Забронировать судно</a>
                         </div>
                     </div>
                 </div>
@@ -112,6 +112,8 @@
             </div>
         </div>
     </footer>
+
+    @include('home.popup')
 
 {{ HTML::script('/js/lib/jquery-1.11.3.min.js') }}
 {{ HTML::script('/js/lib/bootstrap.min.js') }}

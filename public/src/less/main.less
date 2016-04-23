@@ -254,6 +254,29 @@ footer{
   padding: 10px 20px 50px;
 }
 
+.contact-form-2{
+  input, textarea{
+    border: 1px solid @blue-dark;
+    color: #000;
+    border-radius: 0;
+    background: @gray-light;
+  }
+  input:focus, textarea:focus{
+    border: 2px solid @blue-dark;
+    background: @white;
+  }
+
+  input::-webkit-input-placeholder {color: @blue !important;}
+  input:-moz-placeholder {color: @blue !important; } /* Firefox 18- */
+  input::-moz-placeholder {color: @blue !important; }  /* Firefox 19+ */
+  input:-ms-input-placeholder {color: @blue !important; }
+
+  textarea::-webkit-input-placeholder {color: @blue !important;}
+  textarea:-moz-placeholder {color: @blue !important; } /* Firefox 18- */
+  textarea::-moz-placeholder {color: @blue !important; }  /* Firefox 19+ */
+  textarea:-ms-input-placeholder {color: @blue !important; }
+}
+
 
 @media(min-width: 3000px){
   .container-80{
@@ -430,3 +453,10 @@ footer{
   &.slick-prev{transform: scale(-1, 1); margin-top: -17px;}
   &:before{content: '';}
 }
+
+.modal-header, .modal-footer{
+  background: @blue-dark;
+  color: @white;
+}
+
+.call-ico{font-size: 30px; vertical-align: middle;}
