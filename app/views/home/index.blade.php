@@ -65,15 +65,15 @@
                         <div class="row">
                             @foreach($popular as $item)
                                 <div class="col-xs-12 col-sm-3 item">
+                                    <a href="{{ '/'.$type_id[$item->post->type_id].'/'.$item->post->slug.'/'.$item->slug }}">
                                     @if(isset($item->image)&&($item->image))
                                         {{ HTML::image('/upload/image/item/'.$item->image, 'img') }}
+                                            <p class="name">{{$item->name}}</p>
                                     @endif
+                                    </a>
                                     <div class="description">
-                                        <p class="name">{{$item->name}}</p>
-                                        {{--<p>Команда: 3 человека</p>--}}
                                         <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
                                         <p>Неограниченный район плавания</p>
-                                        {{--<p>Скорость хода: 15-17 узлов</p>--}}
                                         <p class="price"><span>1500</span> руб/час</p>
                                         <p><a class="btn btn-main">Арендовать</a></p>
                                     </div>

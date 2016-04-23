@@ -75,10 +75,10 @@
             </div>
         </div>
 
-        <div class="form-group">
-            {{ Form::label('inputText', 'Текст') }}
-            {{Form::textarea('text', (isset($row->text)?$row->text:''), array('class' => 'form-control ', 'id'=>'inputText')); }}
-        </div>
+        {{--<div class="form-group">--}}
+            {{--{{ Form::label('inputText', 'Текст') }}--}}
+            {{--{{Form::textarea('text', (isset($row->text)?$row->text:''), array('class' => 'form-control ', 'id'=>'inputText')); }}--}}
+        {{--</div>--}}
 
         <div class="row">
 <!--             <div class="form-group col-sm-8 col-xs-12">
