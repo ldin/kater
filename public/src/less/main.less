@@ -261,25 +261,25 @@ footer{
 
 .contact-form-2{
   input, textarea{
-    border: 1px solid @blue-dark;
+    //border: 1px solid @blue-dark;
     color: #000;
     border-radius: 0;
-    background: @gray-light;
+    //background: @gray-light;
   }
   input:focus, textarea:focus{
-    border: 2px solid @blue-dark;
-    background: @white;
+    //border: 2px solid @blue-dark;
+    //background: @white;
   }
 
-  input::-webkit-input-placeholder {color: @blue !important;}
-  input:-moz-placeholder {color: @blue !important; } /* Firefox 18- */
-  input::-moz-placeholder {color: @blue !important; }  /* Firefox 19+ */
-  input:-ms-input-placeholder {color: @blue !important; }
-
-  textarea::-webkit-input-placeholder {color: @blue !important;}
-  textarea:-moz-placeholder {color: @blue !important; } /* Firefox 18- */
-  textarea::-moz-placeholder {color: @blue !important; }  /* Firefox 19+ */
-  textarea:-ms-input-placeholder {color: @blue !important; }
+  //input::-webkit-input-placeholder {color: @blue !important;}
+  //input:-moz-placeholder {color: @blue !important; } /* Firefox 18- */
+  //input::-moz-placeholder {color: @blue !important; }  /* Firefox 19+ */
+  //input:-ms-input-placeholder {color: @blue !important; }
+  //
+  //textarea::-webkit-input-placeholder {color: @blue !important;}
+  //textarea:-moz-placeholder {color: @blue !important; } /* Firefox 18- */
+  //textarea::-moz-placeholder {color: @blue !important; }  /* Firefox 19+ */
+  //textarea:-ms-input-placeholder {color: @blue !important; }
 }
 
 
@@ -351,7 +351,12 @@ footer{
     &#slide3{background-image: url("/images/bg/slide3-700.jpg")}
   }
   &#slide1{min-height: 510px;}
-  &#slide2{text-align: right;}
+  &#slide2{
+    min-height: 510px;
+    text-align: right;
+    background-position: right top;
+    .title{padding-top: 170px;}
+  }
 }
 
 #landing-page{
@@ -459,9 +464,14 @@ footer{
   &:before{content: '';}
 }
 
-.modal-header, .modal-footer{
-  background: @blue-dark;
-  color: @white;
+#reviewForm{
+  .modal-body{
+    background: @gray-light;
+    padding-bottom: 35px;
+    border-radius: 0 0 15px 15px;
+  }
+  .phone, .modal-title{ font-size: 24px; color: @blue-dark}
+
 }
 
 .call-ico{font-size: 30px; vertical-align: middle;}

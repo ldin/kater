@@ -64,7 +64,7 @@
                     <div class="items" id="items">
                         <div class="row">
                             @foreach($popular as $item)
-                                <div class="col-xs-12 col-sm-3 item">
+                                <div class="col-xs-12 col-sm-6 col-md-3 item">
                                     <a href="{{ '/'.$type_id[$item->post->type_id].'/'.$item->post->slug.'/'.$item->slug }}">
                                     @if(isset($item->image)&&($item->image))
                                         {{ HTML::image('/upload/image/item/'.$item->image, 'img') }}

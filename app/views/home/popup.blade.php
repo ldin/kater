@@ -10,8 +10,8 @@
                 <div class="text-center">
                     <p>Вы можете позвонить нам по телефону</p>
                     <p>
-                        <a href="tel:{{!empty($settings['phone'])?preg_replace('/[^0-9]/', '', $settings['phone']):''}}">
-                            <i class="glyphicon glyphicon-earphone call-ico"></i><span itemprop="telephone"> {{ !empty($settings['phone'])?$settings['phone']:'' }}</span>
+                        <a href="tel:{{!empty($settings['phone'])?preg_replace('/[^0-9]/', '', $settings['phone']):''}}" class="phone">
+                            <span itemprop="telephone"> {{ !empty($settings['phone'])?$settings['phone']:'' }}</span>
                         </a>
                     </p>
                 </div>
@@ -39,8 +39,8 @@
                     </form>
                 </div>
             </div>
-            <div class="modal-footer">
-            </div>
+            {{--<div class="modal-footer">--}}
+            {{--</div>--}}
         </div>
     </div>
 </div>
