@@ -364,7 +364,6 @@ class AdminController extends BaseController {
                 'name'=> $all['name'],
                 'title'=> $all['title'],
                 'slug'=> $all['slug'],
-                'text'=> $all['text'],
                 'status'=>  isset($all['status'])?true:false,
                 'order'=> $all['order'],
                 'seo_description'=> $all['seo_description'],

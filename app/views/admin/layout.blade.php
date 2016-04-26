@@ -121,7 +121,7 @@
   <script src="/js/bootstrap.min.js"></script>
     <!--<script src="/js/admin.js"></script>-->
 
-   <script src="/ckeditor/ckeditor.js"></script>
+   <script src="/modules/ckeditor/ckeditor.js"></script>
     {{ HTML::script('js/ajexFileManager/ajex.js') }}
 
     @yield('scripts')
