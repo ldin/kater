@@ -326,7 +326,7 @@ class AdminController extends BaseController {
     public function getItem($post_id, $id='')
         {
             $item = Item::find($id);
-            $posts = Item::where('post_id', $post_id)->orderBy('order', 'desc')->get();
+            $posts = Item::where('post_id', $post_id)->orderBy('order', 'asc')->get();
             $parents = Post::where('type_id', 3)->lists('name', 'id');
             $properties = Property::lists('name', 'id');
             $images = [];
