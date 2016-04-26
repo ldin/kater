@@ -5,7 +5,7 @@
 @stop
 
 @section('sidebar')
-    <h4><i class="glyphicon glyphicon-arrow-left"></i>  <a href="/admin/content/1/{{$post_id}}">вернуться</a></h4>
+    <h4><i class="glyphicon glyphicon-arrow-left"></i>  <a href="/admin/content/3/{{$post_id}}">вернуться</a></h4>
     <p>Объекты в категории:</p>
     @if(isset($posts) )
         <ul class="nav menu">
