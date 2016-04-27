@@ -112,7 +112,7 @@
             @endif
             <div class="form-group hidden" data-type="prop" id="add-property">
                 {{ Form::select('', $properties, '', ['class'=>'select-prop', 'id'=>'prop-select']); }}
-                {{ Form::text('','', array('class'=>'form-control', 'id'=>'prop-text')); }}
+                {{ Form::textarea('','', array('class'=>'form-control', 'id'=>'prop-text')); }}
             </div>
             <a href="#" class="btn btn-default js-add-property">Добавить свойство</a>
         </div>
