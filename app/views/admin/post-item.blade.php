@@ -6,12 +6,25 @@
 	@if(!empty($items))
 		@foreach($items as $item)
 
-			<div class="col-xs-12 col-sm-3">
-				<a href="/admin/item/{{$row->id}}/{{$item->id}}">
+			<div class="col-xs-6 col-sm-4 col-md-3">
+				<div class="cellule">
 					<p>{{ $item->name }}</p>
-					{{ HTML::image('/upload/image/item/small/'.$item->image, 'img', ['style'=>'max-width:100%;']) }}
+					<div class="img">
+						{{ HTML::image('/upload/image/item/small/'.$item->image, 'img') }}
+					</div>
+					<div class="work">
+						<div class="left">
+							<a href="/admin/item/{{$row->id}}/{{$item->id}}" title="редактировать">
+								<i class="glyphicon glyphicon-edit"></i>
+							</a>
+						</div>
+						<div class="right">
 
-				</a>
+							<i class="glyphicon glyphicon-trash"></i>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
 			</div>
 
 		@endforeach

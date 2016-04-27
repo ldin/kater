@@ -396,18 +396,42 @@ class AdminController extends BaseController {
                     ->with('success', 'Изменения сохранены');
         }
 
-        public function postImageDropzone($type, $id)
+        public function postImageDropzone($type, $parent_id)
         {
             $all = Input::all();
 
             //$file = Input::file('file');
             if ($type == 'item') {
-                $item = Item::find($id);
-                $file = AdminController::saveImage($all['image'], 'upload/image/item/' . $id . '/', 250);
+                $item = Item::find($parent_id);
+                $file = AdminController::saveImage($all['image'], 'upload/image/item/' . $parent_id . '/', 250);
                 $image = new ItemImage(['src'=>$file]);
-                $item->images()->save($image);
+                $result = $item->images()->save($image);
 
             }
+
+            return $result ? 'true' : 'false';
+        }
+
+        public function getDeleteImageDropzone($type, $parent_id, $id)
+        {
+            $result = false;
+
+            if ($type == 'item' && is_numeric($parent_id) && is_numeric($id)) {
+                $item = Item::find($parent_id);
+                $img = ItemImage::find($id);
+                if(empty($img) || $img->item_id != $parent_id){return false; }
+                $image = 'upload/image/item/'.$item->id.'/'.$img->src;
+                $image_sm = 'upload/image/item/'.$item->id.'/'.$img->src;
+                if (file_exists($image)) {
+                    unlink($image);
+                }
+                if (file_exists($image_sm)) {
+                    unlink($image_sm);
+                }
+                $result = $img->delete();
+            }
+
+            return $result ? 'true' : 'false';
         }
 
         //карта сайта

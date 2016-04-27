@@ -25,6 +25,7 @@
 #slider .carousel-caption {bottom: 0; top:60px;}
 /* slider */
 
+input, textarea{max-width: 100%;}
 
 .menu{padding:0; margin:0; list-style:none; }
 .menu a{ display:block; padding:8px 14px; margin-bottom:-1px; color:#0088CC; text-decoration:none; border:1px solid #E5E5E5;}
@@ -42,3 +43,37 @@
     border: 1px solid #ccc;
     padding: 20px;
 }
+
+.right{float: right;}
+.left{float: left;}
+.cellule{
+    background: #EAEAEA;
+    color: #3c3c3c;
+    border: 1px solid #BFBFBF;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #D6D6D6;
+    padding: 10px;
+    text-align: center;
+    height: 170px;
+    margin-bottom: 10px;
+}
+.cellule p{margin-bottom: 4px;}
+.cellule .img{
+    height: 90px;
+    width: 100%;
+    background: #fff;
+    box-shadow: 1px 1px 0 #ccc;
+    overflow: hidden;
+    display: flex;
+}
+.cellule .img > img {max-width: 100%; max-height: 100%; margin: auto; }
+.cellule .work{
+    margin: 10px 0;
+    font-size: 16px;
+}
+.cellule .work a{margin-right: 5px;}
+.cellule .work i{ color: #777; }
+.cellule .work a > i:hover{ color: #000; }
+
+.cellule.cellule-img{height: 140px;}
+.cellule.cellule-img .img{background-size: cover; background-position: center}

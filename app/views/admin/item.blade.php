@@ -1,7 +1,11 @@
 @extends('admin.layout')
 
 @section('header')
-    {{ HTML::script('/js/dropzone.js') }}
+        <link rel="stylesheet" href="/modules/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+
+
+
+
 @stop
 
 @section('sidebar')
@@ -91,9 +95,26 @@
 
                 @if(isset($row->image)&&($row->image))
                     <br>
-                    <div class="img img-thumbnail">
-                        {{ HTML::image('/upload/image/item/small/'.$row->image, 'img') }}
+                    <div class="cellule cellule-img">
+                        <div class="img">
+                            {{ HTML::image('/upload/image/item/small/'.$row->image, 'img') }}
+                        </div>
+                        <div class="work">
+                            <div class="left">
+                                <a href="{{'/upload/image/item/'.$row->image}}" class="fancybox" title="Увеличить" >
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </a>
+                            </div>
+                            <div class="right">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
+
+                    {{--<div class="img img-thumbnail">--}}
+                        {{--{{ HTML::image('/upload/image/item/small/'.$row->image, 'img') }}--}}
+                    {{--</div>--}}
                 @endif
             </div>
         </div>
@@ -139,9 +160,33 @@
         @if(!empty($row->images[0]))
             <div class="row">
             @foreach($row->images as $key => $img)
-                <div class="">
-                    {{ HTML::image('/upload/image/item/'.$row->id.'/small/'.$img->src, 'img', ['style'=>"float:left; margin:10px;"]) }}
+                <div class="col-xs-6 col-sm-4 col-md-3" id="img-{{$img->id}}">
+                    <div class="cellule cellule-img">
+                        <div class="img" style="background-image: url({{'/upload/image/item/'.$row->id.'/small/'.$img->src}})">
+                        </div>
+                        <div class="work">
+                            <div class="left">
+                                {{--<a href="#"  title="Показать/скрыть">--}}
+                                    <i class="glyphicon glyphicon-ok-sign"></i>
+                                {{--</a>--}}
+                                <a href="{{'/upload/image/item/'.$row->id.'/'.$img->src}}" title="Увеличить" class="fancybox" >
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </a>
+                                {{--<a href="#" title="Сделать главным">--}}
+                                    <i class="glyphicon glyphicon-flag"></i>
+                                {{--</a>--}}
+
+                            </div>
+                            <div class="right">
+                                <a href="#" class="deleteImageDropzone" data-id="{{$img->id}}" data-item="{{$row->id}}">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
                 </div>
+
             @endforeach
             </div>
         @endif
@@ -160,49 +205,67 @@
 @stop
 
 @section('scripts')
-<script type="text/javascript" >
-    $(document).ready(function() {
 
-        //add property
-        var countOfFields = 0;
-        var curFieldNameId = <?=isset($row->properties[0])?count($row->properties):1?>;
-        var maxFieldLimit = <?=count($properties)?>;
-        $('.js-add-property').on('click', function(){
-            if(curFieldNameId >= maxFieldLimit){
-                alert("Больше нет свойств");
+    {{ HTML::script('/js/dropzone.js') }}
+
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/modules/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+    <!-- Add fancyBox -->
+    <script type="text/javascript" src="/modules/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+    <script type="text/javascript" >
+        $(document).ready(function() {
+
+            //add property
+            var countOfFields = 0;
+            var curFieldNameId = <?=isset($row->properties[0])?count($row->properties):1?>;
+            var maxFieldLimit = <?=count($properties)?>;
+            $('.js-add-property').on('click', function(){
+                if(curFieldNameId >= maxFieldLimit){
+                    alert("Больше нет свойств");
+                    return false;
+                }
+                var obj = $("#add-property").clone();
+                obj.find('#prop-select').removeAttr('id').attr('name', 'properties['+curFieldNameId+'][id]');
+                obj.find('#prop-text').removeAttr('id').attr('name', 'properties['+curFieldNameId+'][text]');
+                obj.removeAttr('id').removeClass('hidden');
+                $('.js-add-property').before(obj);
+                curFieldNameId++;
                 return false;
-            }
-            var obj = $("#add-property").clone();
-//            obj.find('#prop-select').val($("#prop-select option:first").val());
-            obj.find('#prop-select').removeAttr('id').attr('name', 'properties['+curFieldNameId+'][id]');
-            obj.find('#prop-text').removeAttr('id').attr('name', 'properties['+curFieldNameId+'][text]');
-            obj.removeAttr('id').removeClass('hidden');
-            $('.js-add-property').before(obj);
-            curFieldNameId++;
-            //console.log(obj);
-            return false;
+            });
+
+
+            $(".fancybox").fancybox({
+                prevEffect  : 'none',
+                nextEffect  : 'none',
+                padding:0,
+                helpers:  {
+                    title:  null
+                }
+
+            });
+
+            $(".deleteImageDropzone").on('click', function(){
+                var id = $(this).data('id');
+                var item = $(this).data('item');
+                $.ajax({
+                    url: '/admin/delete-image-dropzone/item/'+item+'/'+id,
+                    type: "GET",
+                    success: function(data){
+                        if(data == 'true') {
+                            $('#img-' + id).hide();
+                        }
+                    }
+                });
+                return false;
+            });
+
+
 
         });
 
-        var ckeditorText = CKEDITOR.replace( 'inputText' );
-        AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditorText});
-
-        // var ckeditorPreview = CKEDITOR.replace( 'inputPreview', {
-        //  toolbarGroups: [
-        //         {"name":"basicstyles","groups":["basicstyles"]},
-        //         {"name":"links","groups":["links"]},
-        //         {"name":"paragraph","groups":["list","blocks"]},
-        //         {"name":"document","groups":["mode"]},
-        //         {"name":"insert","groups":["insert"]},
-        //         {"name":"styles","groups":["styles"]}
-        //     ],
-        //     removeButtons: 'Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
-        //     });
-        // AjexFileManager.init({returnTo: 'ckeditorPreview', editor: ckeditorPreview});
-
-    });
-
-</script>
+    </script>
 
 @stop
 

@@ -25,7 +25,7 @@ class CreatePostsTable extends Migration {
             $table->string('tags');
             $table->smallInteger('status');
             $table->smallInteger('order');
-            $table->boolean('noindex');
+            $table->smallInteger('status');('noindex');
             $table->string('seo_description');
             $table->string('seo_keywords');
             $table->softDeletes();
