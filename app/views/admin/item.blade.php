@@ -1,11 +1,6 @@
 @extends('admin.layout')
 
 @section('header')
-        <link rel="stylesheet" href="/modules/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
-
-
-
-
 @stop
 
 @section('sidebar')
@@ -208,11 +203,6 @@
 
     {{ HTML::script('/js/dropzone.js') }}
 
-    <!-- Add mousewheel plugin (this is optional) -->
-    <script type="text/javascript" src="/modules/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-    <!-- Add fancyBox -->
-    <script type="text/javascript" src="/modules/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
 
     <script type="text/javascript" >
         $(document).ready(function() {
@@ -235,16 +225,6 @@
                 return false;
             });
 
-
-            $(".fancybox").fancybox({
-                prevEffect  : 'none',
-                nextEffect  : 'none',
-                padding:0,
-                helpers:  {
-                    title:  null
-                }
-
-            });
 
             $(".deleteImageDropzone").on('click', function(){
                 var id = $(this).data('id');

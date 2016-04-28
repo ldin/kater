@@ -7,7 +7,7 @@
 		@foreach($items as $item)
 
 			<div class="col-xs-6 col-sm-4 col-md-3">
-				<div class="cellule">
+				<div class="cellule item">
 					<p>{{ $item->name }}</p>
 					<div class="img">
 						{{ HTML::image('/upload/image/item/small/'.$item->image, 'img') }}

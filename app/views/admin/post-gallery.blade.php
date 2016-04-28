@@ -5,48 +5,65 @@
 	<div class="row">
 	@if(!empty($galleries))
 		@foreach($galleries as $image)
-		    @if(Session::has('success-img'.$image->id))
-            <div class="alert alert-success">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-              {{ Session::get('success-img'.$image->id) }}
-            </div>
-            @endif
 
-            @if(Session::has('error-img'.$image->id))
-            <div class="alert alert-danger">
-              <button type="button" class="close" data-dismiss="alert">×</button>
-              {{ Session::get('error-img'.$image->id) }}
-            </div>
-            @endif
-			<div class="col-xs-6 col-sm-4 border" id="image-{{ $image->id }}">
-				<hr>
-				{{ Form::open(array('url' => 'admin/image-gallery/'.$type_id.'/'.$row->id.'/'.$image->id, 'class' => 'form-group', 'files' => true)) }}
-		            <div class="">
+			@if(Session::has('success-img'.$image->id))
+			<div class="alert alert-success col-xs-12">
+			  <button type="button" class="close" data-dismiss="alert">×</button>
+			  {{ Session::get('success-img'.$image->id) }}
+			</div>
+			@endif
+			@if(Session::has('error-img'.$image->id))
+			<div class="alert alert-danger col-xs-12">
+			  <button type="button" class="close" data-dismiss="alert">×</button>
+			  {{ Session::get('error-img'.$image->id) }}
+			</div>
+			@endif
+
+			<div class="col-xs-6 col-sm-4 col-md-3" id="img-{{$image->id}}">
+
+				<div class="cellule cellule-img" id="image-{{ $image->id }}" >
+					{{ Form::open(array('url' => 'admin/image-gallery/'.$type_id.'/'.$row->id.'/'.$image->id, 'class' => 'form-group', 'files' => true)) }}
+
 						<div class="form-group ">
-							{{ Form::label('inputImage', 'Изображение') }}
+							{{ Form::label('inputImage', 'Изображение', ['class'=>'sr-only']) }}
 							{{ Form::file('image') }}
-							<br>
-							<div class="img img-thumbnail">
-								{{ HTML::image($image->small_image, $image->alt, ['style'=>'height:150px; max-width:100%;']) }}
-							</div>
 						</div>
-			            <div class="form-group ">
-			                {{ Form::label('inputTextIMG', 'Описание') }}
-			                {{Form::textarea('text', $image->text, array('class' => 'form-control ', 'id'=>'inputTextIMG', 'rows'=>'2')); }}
-			            
-		 					{{ Form::label('inputAltIMG', 'Alt (название изображения)') }}
-			                {{Form::text('alt', $image->alt, array('class' => 'form-control ', 'id'=>'inputAltIMG')); }}
 
-			            </div> 
+						<div class="img" style="background-image: url(/{{$image->small_image}})">
+						</div>
+						<div class="form-group ">
+							{{ Form::label('inputTextIMG', 'Описание', ['class'=>'sr-only']) }}
+							{{Form::textarea('text', $image->text, array('class' => 'form-control ', 'id'=>'inputTextIMG', 'rows'=>'1', 'placeholder'=>'Описание')); }}
+						</div>
+						<div class="form-group ">
+							{{ Form::label('inputAltIMG', 'Alt (название изображения)', ['class'=>'sr-only']) }}
+							{{Form::text('alt', $image->alt, array('class' => 'form-control ', 'id'=>'inputAltIMG', 'placeholder'=>'alt')); }}
+						</div>
 
-			        </div>
+						<div class="work">
+							<div class="left">
+								<button type="submit"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+								<a href="/{{$image->image}}" title="Увеличить" class="fancybox" >
+									<i class="glyphicon glyphicon-search"></i>
+								</a>
 
-		        	{{ Form::submit('Сохранить', array( 'class' => 'btn btn-default')) }}
-		        	{{ HTML::link('/admin/delete/image/'.$row->id.'/'.$image->id, 'Удалить фото', array('class' => 'btn btn-default red', 'onClick' =>"return window.confirm('Вы уверены что хотите удалить изображение?')")) }}
 
-				{{ Form::close() }}
-				<hr>
-			</div>	
+							</div>
+							<div class="right">
+								{{--<a href="#" class="deleteImageDropzone" data-id="{{$image->id}}" data-item="{{$row->id}}">--}}
+									{{--<i class="glyphicon glyphicon-trash"></i>--}}
+								{{--</a>--}}
+								<a href="{{'/admin/delete/image/'.$row->id.'/'.$image->id}}">
+									<i class="glyphicon glyphicon-trash"></i>
+								</a>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+
+					{{ Form::close() }}
+
+				</div>
+			</div>
 
 		@endforeach
 	@endif

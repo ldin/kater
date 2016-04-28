@@ -10,10 +10,10 @@
   <!-- Le styles -->
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/admin.css" rel="stylesheet">
+  <link rel="stylesheet" href="/modules/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+
   {{ HTML::script('/js/jquery-1.11.3.min.js') }}
   {{ HTML::script('/js/jquery-ui.min.js') }}
-
-  {{ HTML::script('/js/admin.js') }}
 
   @yield('header')
 
@@ -118,13 +118,20 @@
     </div>
 
 
-  <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <!--<script src="/js/admin.js"></script>-->
 
-   <script src="/modules/ckeditor/ckeditor.js"></script>
+    <script src="/modules/ckeditor/ckeditor.js"></script>
     {{ HTML::script('js/ajexFileManager/ajex.js') }}
 
-    @yield('scripts')
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="/modules/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+    <!-- Add fancyBox -->
+    <script type="text/javascript" src="/modules/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+    {{ HTML::script('/js/admin.js') }}
+
+@yield('scripts')
 
 
  </body>

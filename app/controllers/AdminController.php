@@ -67,6 +67,7 @@ class AdminController extends BaseController {
 
         //добавляем или редактируем страницу
         else if(is_numeric($id)||$id=='add'){
+            $type_template = Type::where('id', $type_id)->lists('template', 'id');
             $post = Post::find($id);
             $galleries = Gallery::where('post_id', $id)->get();
             $items = Post::find($id)->items;
@@ -75,6 +76,7 @@ class AdminController extends BaseController {
             foreach ($posts as $value) {
                 if($value->id!=$id){$parent[$value['id']]= $value['name'];}
             }
+            $view['type_template'] = $type_template;
             $view['galleries'] = $galleries;
             $view['items'] = $items;
             $view['parent'] = $parent;

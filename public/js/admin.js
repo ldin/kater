@@ -15,6 +15,16 @@ $(document).ready(function(){
         }
     });
 
+    $(".fancybox").fancybox({
+        prevEffect  : 'none',
+        nextEffect  : 'none',
+        padding:0,
+        helpers:  {
+            title:  null
+        }
+
+    });
+
 });
 
 

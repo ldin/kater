@@ -107,8 +107,13 @@
     </div>
     {{ Form::close() }}
 </div>
- @include('admin.post-item')
- @include('admin.post-gallery')
+    @if($type_template[$row->type_id] == 'category')
+     @include('admin.post-item')
+    @endif
+
+    @if($type_template[$row->type_id] == 'gallery')
+     @include('admin.post-gallery')
+    @endif
 
 @stop
 
@@ -130,6 +135,21 @@
         //     removeButtons: 'Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
         //     });
         // AjexFileManager.init({returnTo: 'ckeditorPreview', editor: ckeditorPreview});
+
+        $(".deleteImageDropzone").on('click', function(){
+            var id = $(this).data('id');
+            var item = $(this).data('item');
+            $.ajax({
+                url: '/admin/delete-image-dropzone/gallery/'+item+'/'+id,
+                type: "GET",
+                success: function(data){
+                    if(data == 'true') {
+                        $('#img-' + id).hide();
+                    }
+                }
+            });
+            return false;
+        });
 
     });
 

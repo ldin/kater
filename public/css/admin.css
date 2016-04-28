@@ -54,12 +54,13 @@ input, textarea{max-width: 100%;}
     box-shadow: 2px 2px 5px #D6D6D6;
     padding: 10px;
     text-align: center;
-    height: 170px;
+    height: 200px;
     margin-bottom: 10px;
 }
+.cellule.item{background: #B4D7E8}
 .cellule p{margin-bottom: 4px;}
 .cellule .img{
-    height: 90px;
+    height: 120px;
     width: 100%;
     background: #fff;
     box-shadow: 1px 1px 0 #ccc;
@@ -75,5 +76,11 @@ input, textarea{max-width: 100%;}
 .cellule .work i{ color: #777; }
 .cellule .work a > i:hover{ color: #000; }
 
-.cellule.cellule-img{height: 140px;}
+.cellule.cellule-img{height: 170px;}
 .cellule.cellule-img .img{background-size: cover; background-position: center}
+
+#gallery .cellule{min-height:280px; height: 100%}
+#gallery .cellule .form-group{margin: 5px 0 }
+#gallery .cellule input, #gallery .cellule textarea{font-size: 10px;}
+#gallery .cellule button{border: none; background: none;}
+#gallery .cellule button:hover i{color: #000;}
