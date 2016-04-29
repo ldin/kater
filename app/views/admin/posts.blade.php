@@ -123,34 +123,6 @@
         var ckeditorText = CKEDITOR.replace( 'inputText' );
         AjexFileManager.init({returnTo: 'ckeditor', editor: ckeditorText});
 
-        // var ckeditorPreview = CKEDITOR.replace( 'inputPreview', {
-        //  toolbarGroups: [
-        //         {"name":"basicstyles","groups":["basicstyles"]},
-        //         {"name":"links","groups":["links"]},
-        //         {"name":"paragraph","groups":["list","blocks"]},
-        //         {"name":"document","groups":["mode"]},
-        //         {"name":"insert","groups":["insert"]},
-        //         {"name":"styles","groups":["styles"]}
-        //     ],
-        //     removeButtons: 'Strike,Subscript,Superscript,Anchor,Styles,Specialchar'
-        //     });
-        // AjexFileManager.init({returnTo: 'ckeditorPreview', editor: ckeditorPreview});
-
-        $(".deleteImageDropzone").on('click', function(){
-            var id = $(this).data('id');
-            var item = $(this).data('item');
-            $.ajax({
-                url: '/admin/delete-image-dropzone/gallery/'+item+'/'+id,
-                type: "GET",
-                success: function(data){
-                    if(data == 'true') {
-                        $('#img-' + id).hide();
-                    }
-                }
-            });
-            return false;
-        });
-
     });
 
 </script>

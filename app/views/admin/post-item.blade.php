@@ -1,4 +1,4 @@
-<div class="gallery" id="gallery">
+<div class="gallery" id="items">
 @if(!empty($row->id))
 	<br><br>
 	<h3><i class="glyphicon glyphicon-th-large"></i> Объекты на странице</h3>

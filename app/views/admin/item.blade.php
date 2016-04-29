@@ -1,6 +1,7 @@
 @extends('admin.layout')
 
 @section('header')
+    {{ HTML::style('/modules/dropzone/dropzone.css') }}
 @stop
 
 @section('sidebar')
@@ -201,7 +202,7 @@
 
 @section('scripts')
 
-    {{ HTML::script('/js/dropzone.js') }}
+    {{ HTML::script('/modules/dropzone/dropzone.js') }}
 
 
     <script type="text/javascript" >

@@ -1,3 +1,7 @@
+@section('header')
+	@parent
+    {{ HTML::style('/modules/dropzone/dropzone.css') }}
+@stop
 <div class="gallery" id="gallery">
 @if(!empty($row->id))
 	<br><br>
@@ -50,10 +54,7 @@
 
 							</div>
 							<div class="right">
-								{{--<a href="#" class="deleteImageDropzone" data-id="{{$image->id}}" data-item="{{$row->id}}">--}}
-									{{--<i class="glyphicon glyphicon-trash"></i>--}}
-								{{--</a>--}}
-								<a href="{{'/admin/delete/image/'.$row->id.'/'.$image->id}}">
+								<a href="#" class="deleteImageDropzone" data-id="{{$image->id}}" data-item="{{$row->id}}">
 									<i class="glyphicon glyphicon-trash"></i>
 								</a>
 							</div>
@@ -68,6 +69,18 @@
 		@endforeach
 	@endif
 	</div>
+
+	<h3>Быстрая загрузка</h3>
+
+	<form action="/admin/image-dropzone/gallery/{{$row->id}}" class="dropzone" id="my-dropzone" method="POST" files="true">
+		<div class="dz-message">
+			<h4>Загрузите фото</h4>
+			<p>или кликните сюда</p>
+		</div>
+    </form>
+
+	<h3>Загрузить с описанием</h3>
+
 	<div class="row bg-info" id="image-add">
 
 		    @if(Session::has('success-imgadd'))
@@ -85,7 +98,6 @@
             @endif
 
 		<div class="col-xs-12">
-			<h4><i class="glyphicon glyphicon-picture"></i> Добавить изображение</h4>
 			{{ Form::open(array('url' => 'admin/image-gallery/'.$type_id.'/'.$row->id, 'class' => 'form-group', 'files' => true)) }}
 	            <div class="row">
 		            <div class="form-group col-sm-8 col-xs-12">
@@ -112,3 +124,31 @@
 
 
 </div>
+
+@section('scripts')
+	@parent
+
+    {{ HTML::script('/modules/dropzone/dropzone.js') }}
+
+    <script type="text/javascript" >
+        $(document).ready(function() {
+
+            $(".deleteImageDropzone").on('click', function(){
+                var id = $(this).data('id');
+                var item = $(this).data('item');
+                $.ajax({
+                    url: '/admin/delete-image-dropzone/gallery/'+item+'/'+id,
+                    type: "GET",
+                    success: function(data){
+                        if(data == 'true') {
+                            $('#img-' + id).hide();
+                        }
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+
+@stop

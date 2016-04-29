@@ -180,7 +180,7 @@ class AdminController extends BaseController {
                             ->with('error-img'.$image_id, 'Ошибка');
                 }
             }    
-            if(!is_numeric($post_id)){return false;}
+            if(!is_numeric($post_id)){return 'false';}
 
             if(is_numeric($image_id))   {
                 $post = Gallery::find($image_id);
@@ -238,17 +238,7 @@ class AdminController extends BaseController {
                 $slide = User::find($id)->delete();
                 $redir = '/admin/user';
                 break;
-            case 'image':
-                $slide = Gallery::find($id);
-                if (file_exists($slide->image)) {
-                    unlink($slide->image);
-                }
-                if (file_exists($slide->small_image)) {
-                    unlink($slide->small_image);
-                }
-                $slide->delete();
-                return Redirect::back();
-                break;    
+
         }
 
         return Redirect::to($redir);
@@ -400,37 +390,64 @@ class AdminController extends BaseController {
 
         public function postImageDropzone($type, $parent_id)
         {
+            if(!is_numeric($parent_id)){return 'false';}
             $all = Input::all();
+            $result = null;
 
-            //$file = Input::file('file');
-            if ($type == 'item') {
-                $item = Item::find($parent_id);
-                $file = AdminController::saveImage($all['image'], 'upload/image/item/' . $parent_id . '/', 250);
-                $image = new ItemImage(['src'=>$file]);
-                $result = $item->images()->save($image);
 
+            switch ($type) {
+                case 'item':
+                    $item = Item::find($parent_id);
+                    $file = AdminController::saveImage($all['image'], 'upload/image/item/' . $parent_id . '/', 250);
+                    $image = new ItemImage(['src' => $file]);
+                    $result = $item->images()->save($image);
+                    break;
+                case 'gallery':
+                    $path='upload/gallery/'.$parent_id.'/';
+                    $filename = AdminController::saveImage($all['image'], $path, null, 250);
+                    //var_dump($type); die();
+                    $image = new Gallery;
+                    $image->post_id = $parent_id;
+                    $image->image = $path.$filename;
+                    $image->small_image = $path.'small/'.$filename;
+                    $result = $image->save();
+                    break;
             }
-
             return $result ? 'true' : 'false';
         }
 
         public function getDeleteImageDropzone($type, $parent_id, $id)
         {
             $result = false;
+            if (!is_numeric($parent_id) || !is_numeric($id)) {return 'false';}
 
-            if ($type == 'item' && is_numeric($parent_id) && is_numeric($id)) {
-                $item = Item::find($parent_id);
-                $img = ItemImage::find($id);
-                if(empty($img) || $img->item_id != $parent_id){return false; }
-                $image = 'upload/image/item/'.$item->id.'/'.$img->src;
-                $image_sm = 'upload/image/item/'.$item->id.'/'.$img->src;
-                if (file_exists($image)) {
-                    unlink($image);
-                }
-                if (file_exists($image_sm)) {
-                    unlink($image_sm);
-                }
-                $result = $img->delete();
+            switch ($type) {
+                 case 'item':
+                    $item = Item::find($parent_id);
+                    $img = ItemImage::find($id);
+                    if (empty($img) || $img->item_id != $parent_id) {
+                        return 'false';
+                    }
+                    $image = 'upload/image/item/' . $item->id . '/' . $img->src;
+                    $image_sm = 'upload/image/item/' . $item->id . '/' . $img->src;
+                    if (file_exists($image)) {
+                        unlink($image);
+                    }
+                    if (file_exists($image_sm)) {
+                        unlink($image_sm);
+                    }
+                    $result = $img->delete();
+
+                 case 'gallery':
+                    $slide = Gallery::find($id);
+                    if (file_exists($slide->image)) {
+                        unlink($slide->image);
+                    }
+                    if (file_exists($slide->small_image)) {
+                        unlink($slide->small_image);
+                    }
+                    $result = $slide->delete();
+                    break;
             }
 
             return $result ? 'true' : 'false';
