@@ -65,7 +65,7 @@ class HomeController extends BaseController {
         if($type_post->template=='gallery'){
             $posts = Post::where('type_id',$type_post->id)->where('status',1)->where('parent',0)->orderBy('order', 'asc')->get();
             foreach ($posts as $key => $post) {
-                $post->gallerie = Gallery::where('post_id', $post->id)->get();
+                $post->gallerie = Gallery::where('post_id', $post->id)->paginate(20);
             }
         }
 
@@ -210,82 +210,11 @@ class HomeController extends BaseController {
                     ->with('message_sent', 'Ваше сообщение отправлено, с вами свяжутся наши сотрудники.');
     }
 
-    public function autocomplete($type, $street_id=''){
-        $term = Input::get('term');
-
-        $results = array();
-
-        if($type == 'street'){
-
-            $queries = DB::connection('mysql_address')->table('common_street')
-                ->where('name', 'LIKE', '%'.$term.'%')
-                ->select('name', 'id')
-                ->take(5)->get();
-            foreach ($queries as $query)
-                {
-                    $results[] = [ 'id' => $query->id, 'value' => $query->name ];
-                }
-
-
+    public function getMoreEvents()
+      {
+        if (Request::ajax()) {
+        $ids=$_POST['ids']; // в моём случае пост запросом передается массив чисел вида [1,2,3,4...], здесь я этот массив принимаю.
+        return View::make('home.more')->with('more', Model::whereNotIn('id','!=', $ids))->get(); //делаем запрос в базу данных, получаем статьи в которых нет id из массива $ids
         }
-        else if($type == 'house'){
-            $queries = DB::connection('mysql_address')->table('common_house')
-                ->where('street', $street_id)
-                ->where('house', 'LIKE', '%'.$term.'%')
-                ->select('house as name', 'id', 'flag_t', 'flag_p' )
-                ->take(5)->get();
-
-            foreach ($queries as $query)
-            {
-                $results[] = [ 'id' => $query->id, 'value' => $query->name, 'flag'=>$query->flag_t ];
-            }
-        }
-        else{
-            return false;
-        }
-
-        return Response::json($results);
-    }
-
-
-    public function getRate($slug=''){
-
-        $type=Type::where('type', 'rate')->first();
-        $posts = Post::where('type_id', '=', $type->id)->where('status',1)->where('parent', '=', '0')->orderBy('created_at', 'desc')->get();
-        $posts_child = Post::where('type_id', '=', $type->id)->where('status',1)->where('parent', '!=', '0')->orderBy('created_at', 'desc')->get();
-        if(!empty($slug)){
-            $row = Post::where('slug', $slug)->first();
-            $posts_child = Post::where('type_id', '=', $type->id)->where('parent', $row->id)->where('status',1)->orderBy('created_at', 'desc')->get();
-            $blade = 'home.page-menu-title';
-        }
-        else{
-            $tv = Rate::where('type', 'tv')->where('status', 1)->orderBy('position', 'asc')->get();
-            $inet = Rate::where('type', 'inet')->first();
-            $inetOption = Rate::where('type', 'inetOption')->where('status', 1)->orderBy('position', 'asc')->get();
-            $row = array(
-                'inet'=>json_decode($inet->description),
-                'inetOption'=>$inetOption,
-                'tv'=>$tv,
-            );
-            $blade = 'home.page-rate';
-        }
-
-        $view = array(
-            'posts' => $posts,
-            'posts_child' => $posts_child,
-            'type' => $type,
-            'row'=> $row,
-        );
-        return View::make($blade, $view);
-    }
-
-    public function postConnect( $slug=''){
-        var_dump(Input::all());die();
-
-
-        $view = array(
-
-        );
-        return View::make('home.index', $view);
-    }
+      }
 }

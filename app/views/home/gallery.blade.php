@@ -5,6 +5,9 @@
 @stop
 
 @section('header')
+
+    <meta name="csrf-token" content="<?php echo csrf_token(); ?>">
+
     {{ HTML::style('/css/gallery.css') }}
 
     <!-- Add fancyBox -->
@@ -38,8 +41,6 @@
 
             @if(isset($posts)&&count($posts)>0)
 
-
-
                 @foreach($posts as $post)
 
                     <div class="item">
@@ -58,12 +59,25 @@
                             @endforeach
                             <div class="clearfix"></div>
 
+                            <button type="button" id="loading-example-btn" data-loading-text="Loading..." class="btn btn-primary noradius" style="margin:0px auto">
+                              Показать ещё
+                            </button>
+
+                            {{--<code lang="html">--}}
+                                {{--<div id="galleriesMore"></div>--}}
+                            {{--</code>--}}
+
+
+                            {{ $post->gallerie->links() }}
+
                         </div>
 
                     @endif
                 @endforeach
 
             @endif
+
+
         </div>
 
     </div>
@@ -100,15 +114,29 @@
             title : {
               type: 'outside'
             },
-            thumbs  : {
-              width : 50,
-              height  : 50
-            },
             overlay: {
               locked: false
             }
           }
       });
+    });
+
+    $('#loading-example-btn').click(function () {
+        var btn = $(this)
+        btn.button('loading')
+        $.ajax({
+            url: "more", // url запроса
+            cache: false,
+            data: { ids: ids }, // если нужно передать какие-то данные
+            type: "POST", // устанавливаем типа запроса POST
+            beforeSend: function(request) {  // нужно для защиты от CSRF
+                return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
+            },
+            success: function(html) { $('#galleriesMore').append(html);} //контент подгружается в div#content
+        }).always(function () {
+            btn.button('reset')
+        });
+        return false
     });
 
   </script>
