@@ -1,47 +1,13 @@
 <?php // -*- coding: utf-8 -*-
 
 define('PHPSHELL_VERSION', '2.4');
-/*
 
-  **************************************************************
-  *                     PHP Shell                              *
-  **************************************************************
-
-  PHP Shell is an interactive PHP script that will execute any command
-  entered.  See the files README, INSTALL, and SECURITY or
-  http://phpshell.sourceforge.net/ for further information.
-
-  Copyright (C) 2000-2012 the Phpshell-team
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU General Public License
-  as published by the Free Software Foundation; either version 2
-  of the License, or (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You can get a copy of the GNU General Public License from this
-  address: http://www.gnu.org/copyleft/gpl.html#SEC1
-  You can also write to the Free Software Foundation, Inc., 59 Temple
-  Place - Suite 330, Boston, MA  02111-1307, USA.
-  
-*/
-
-/* There are no user-configurable settings in this file anymore, please see
- * config.php instead. */
 
 header("Content-Type: text/html; charset=utf-8");
 
-/* This error handler will turn all notices, warnings, and errors into fatal
- * errors, unless they have been suppressed with the @-operator. */
 function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
 {
-    /* The @-operator (used with chdir() below) temporarely makes
-     * error_reporting() return zero, and we don't want to die in that case.
-     * We do note the error in the output, though. */
+
     if (error_reporting() == 0) {
         $_SESSION['output'] .= $errstr . "\n";
     } else {
@@ -49,11 +15,9 @@ function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
    "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-  <title>PHP Shell ' . PHPSHELL_VERSION . '</title>
+  <title></title>
   <meta http-equiv="Content-Script-Type" content="text/javascript">
   <meta http-equiv="Content-Style-Type" content="text/css">
-  <meta name="generator" content="phpshell">
-  <link rel="shortcut icon" type="image/x-icon" href="phpshell.ico">
   <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
@@ -68,12 +32,6 @@ function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
   instruction on how to use PHP Shell.</p>
 
   <hr>
-
-  <address>
-  Copyright &copy; 2000&ndash;2012, the Phpshell-team. Get the latest
-  version at <a
-  href="http://phpshell.sourceforge.net/">http://phpshell.sourceforge.net/</a>.
-  </address>
 
 </body>
 </html>');
@@ -242,8 +200,7 @@ if ($_SESSION['authenticated']) {
         if (trim($command) == 'cd') {
             $_SESSION['cwd'] = realpath($ini['settings']['home-directory']);
         } elseif (preg_match('/^[[:blank:]]*cd[[:blank:]]+([^;]+)$/', $command, $regs)) {
-            /* The current command is a 'cd' command which we have to handle
-             * as an internal shell command. */
+
 
             /* if the directory starts and ends with quotes ("), remove them -
                allows command like 'cd "abc def"' */
@@ -394,8 +351,6 @@ if ($_SESSION['authenticated']) {
   <title>PHP Shell <?php echo PHPSHELL_VERSION ?></title>
   <meta http-equiv="Content-Script-Type" content="text/javascript">
   <meta http-equiv="Content-Style-Type" content="text/css">
-  <meta name="generator" content="phpshell">
-  <link rel="shortcut icon" type="image/x-icon" href="phpshell.ico">
   <link rel="stylesheet" href="style.css" type="text/css">
 
   <script type="text/javascript">
@@ -496,7 +451,7 @@ if (!$_SESSION['authenticated']) {
 
 <?php } else { /* Authenticated. */ ?>
 <fieldset>
-  <legend><?php echo "Phpshell running on: " . $_SERVER['SERVER_NAME']; ?></legend>
+  <legend><?php echo "running on: " . $_SERVER['SERVER_NAME']; ?></legend>
 <p>Current Working Directory:
 <span class="pwd"><?php
     if ( $showeditor ) {
@@ -603,19 +558,5 @@ if (!$_SESSION['authenticated']) {
 
 </form>
 
-<hr>
-
-<p>Please consult the <a href="README">README</a>, <a
-href="INSTALL">INSTALL</a>, and <a href="SECURITY">SECURITY</a> files for
-instruction on how to use PHP Shell.</p>
-<p>If you have not created accounts for phpshell, please use 
-<a href="pwhash.php">pwhash.php</a> to create secure passwords.</p>
-
-<hr>
-<address>
-Copyright &copy; 2000&ndash;2012, the Phpshell-team. Get the
-latest version at <a
-href="http://phpshell.sourceforge.net/">http://phpshell.sourceforge.net/</a>.
-</address>
 </body>
 </html>
