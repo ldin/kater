@@ -38,13 +38,16 @@
                           </a>
 
                           <div class="description">
-
-                               {{--<p>Команда: 3 человека</p>--}}
-                               <p><i class="glyphicon glyphicon-user"></i> 60 человек</p>
-                               <p>Неограниченный район плавания</p>
-                               {{--<p>Скорость хода: 15-17 узлов</p>--}}
-                               <p class="price"><span>1500</span> руб/час</p>
-                               <p><a class="btn btn-main">Арендовать</a></p>
+                              @if(!empty($item->prop['guests']))
+                                <p><i class="glyphicon glyphicon-user"></i>{{ $item->prop['guests']['text'] }} </p>
+                              @endif
+                              @if(!empty($item->prop['area']))
+                                <p>{{ $item->prop['area']['text'] }}</p>
+                              @endif
+                              @if(!empty($item->prop['price']))
+                                <p class="price"><span>{{ preg_replace("/[^0-9 ]/", '',$item->prop['price']['text']) }}</span> руб/час</p>
+                              @endif
+                                <p><a class="btn btn-main">Арендовать</a></p>
                           </div>
                      </div>
                 @endforeach

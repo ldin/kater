@@ -55,7 +55,7 @@ class Item extends Eloquent
 	  {
 	    return $this->belongsToMany('Property')->withPivot('text');
 	  }
-	  
+
 	public function images()
 	  {
 	    return $this->hasMany('ItemImage');

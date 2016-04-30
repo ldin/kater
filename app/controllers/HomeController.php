@@ -39,6 +39,13 @@ class HomeController extends BaseController {
         $categories = Post::where('type_id',3)->get(['slug', 'image', 'name', 'preview']);
         $type_id=Type::where('status',1)->lists('type', 'id');
         $popular = Item::where('image','!=', '')->orderBy('created_at', 'desc')->take(4)->get();
+        foreach($popular as $item) {
+            foreach ($item->properties as $property) {
+                $prop[$property->slug]['name'] = $property->name;
+                $prop[$property->slug]['text'] = $property->pivot->text;
+                $item->prop = $prop;
+            }
+        }
         $view = array(
             'gallery'=>$gallery,
             'categories'=>$categories,
@@ -80,10 +87,24 @@ class HomeController extends BaseController {
                 $post->preview = $preview['text'];
             }
         }
-        else if($type_post->template=='portfolio'){
+        else if($type_post->template=='category'){
             $posts = Post::where('type_id',$type_post->id)->where('status',1)->where('parent',0)->orderBy('order', 'asc')->get();
-            foreach ($posts as $key => $post) {
-                $post->galleries = Gallery::where('post_id', $post->id)->get();
+            if($slug!=''){
+                $row = Post::where('slug',$slug)->first();
+                if($row->parent!=0){
+                    $parent = Post::where('id',$row->parent)->first();
+                    $row->parent_title=$parent->name;
+                    $row->parent_slug=$parent->slug;
+                }
+                foreach($row->items as $item) {
+                    foreach ($item->properties as $property) {
+                        $prop[$property->slug]['name'] = $property->name;
+                        $prop[$property->slug]['text'] = $property->pivot->text;
+                        $item->prop = $prop;
+                    }
+                }
+            }else{
+                return Redirect::to($type.'/'. $posts[0]->slug);
             }
         }
 
@@ -101,9 +122,6 @@ class HomeController extends BaseController {
 
                 $galleries = Gallery::where('post_id', $row->id)->get();
             }
-            if($type_post->template=='category' && $slug == ''){
-                return Redirect::to($type.'/'. $posts[0]->slug);
-            }
         }
 
 
@@ -118,9 +136,6 @@ class HomeController extends BaseController {
     }
 
     public function getItem($type_slug, $post_slug,  $item_slug){
-
-//        $type = Type::where('type', $type_slug)->first();
-//        $post = Post::where('slug', $post_slug)->first();
         $item = Item::where('slug', $item_slug)->first();
         $properties=[];
         foreach($item->properties as $property){
@@ -129,8 +144,6 @@ class HomeController extends BaseController {
         }
 
         $view = array(
-//            'type'=>$type_post,
-//            'posts'=>$posts,
             'row' => $item,
             'properties' => $properties,
         );
