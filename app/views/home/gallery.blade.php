@@ -59,9 +59,9 @@
                             @endforeach
                             <div class="clearfix"></div>
 
-                            <button type="button" id="loading-example-btn" data-loading-text="Loading..." class="btn btn-primary noradius" style="margin:0px auto">
-                              Показать ещё
-                            </button>
+                            {{--<button type="button" id="loading-example-btn" data-loading-text="Loading..." class="btn btn-primary noradius" style="margin:0px auto">--}}
+                              {{--Показать ещё--}}
+                            {{--</button>--}}
 
                             {{--<code lang="html">--}}
                                 {{--<div id="galleriesMore"></div>--}}
