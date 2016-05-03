@@ -47,7 +47,7 @@
                               @if(!empty($item->prop['price']))
                                 <p class="price"><span>{{ preg_replace("/[^0-9 ]/", '',$item->prop['price']['text']) }}</span> руб/час</p>
                               @endif
-                                <p><a class="btn btn-main">Арендовать</a></p>
+                                <p><a class="btn btn-main"  data-toggle="modal" data-item="{{$item->id}}" data-target="#reviewForm">Арендовать</a></p>
                           </div>
                      </div>
                 @endforeach

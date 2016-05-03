@@ -28,19 +28,9 @@ Route::controller('admin', 'AdminController');
 
 //all
 
-Route::post('/connect', 'HomeController@postConnect');
-Route::get('/ajax/{slug?}', 'HomeController@getAjax');
-Route::get('/search/autocomplete/{type}/{id?}', 'HomeController@autocomplete');
-
-Route::post('more', array('before'=>'csrf-ajax', 'as'=>'more', 'uses'=>'HomeController@getMoreEvents'));
-
+//Route::post('more', array('before'=>'csrf-ajax', 'as'=>'more', 'uses'=>'HomeController@getMoreEvents'));
 
 Route::get('/rate/{slug?}', 'HomeController@getRate');
 Route::get('/{type}/{slug?}', 'HomeController@getPage');
 Route::get('/{type}/{post}/{item}', 'HomeController@getItem');
-//Route::get('api/shows', 'ShowController@index');
-//
-//App::missing(function($exception)
-//{
-//    return File::get(public_path() . '/angular.html');
-//});
+Route::controller('/', 'HomeController');

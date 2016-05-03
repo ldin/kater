@@ -18,6 +18,12 @@
                 <div class="text-center">
                     <p>Или оставить заявку и мы Вам перезвоним</p>
                     <form method="POST" action="/form-request"  role="form" class="contact-form-2">
+                        <div>
+                            <input type="hidden" name="slug_for" value="{{URL::current()}}">
+                            @if(!empty($row->id) && !empty($row->post_id))
+                                <input type="hidden" name="item_id" value="{{$row->id}}">
+                            @endif
+                        </div>
                         <div class="form-group">
                             <label for="inputName" class="sr-only">Имя</label>
                             <input type="text" name="name" class="form-control" id="inputName" placeholder="Ваше имя" required>

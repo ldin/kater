@@ -15,8 +15,8 @@ return array(
 	|
 	*/
 
-	// 'driver' => 'smtp',
-	'driver' => 'mail',
+	 'driver' => 'smtp',
+//	'driver' => 'mail',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -29,8 +29,8 @@ return array(
 	|
 	*/
 
-	// 'host' => 'smtp.yandex.ru',
-	'host' => 'localhost',
+	 'host' => 'smtp.yandex.ru',
+//	'host' => 'localhost',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return array(
 	|
 	*/
 
-	// 'port' => 587,
+//	 'port' => 587,
 	'port' => 465,
 
 	/*
@@ -57,7 +57,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => '', 'name' => 'Arin-shapeau'),
+	'from' => array('address' => 'numidal.ru@yandex.ru', 'name' => 'Numidal'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -84,7 +84,7 @@ return array(
 	|
 	*/
 
-	'username' => '',
+	'username' => 'numidal.ru',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,7 +97,7 @@ return array(
 	|
 	*/
 
-	'password' => '',
+	'password' => 'FRG8xW97',
 
 	/*
 	|--------------------------------------------------------------------------

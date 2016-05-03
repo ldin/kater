@@ -181,46 +181,70 @@ class HomeController extends BaseController {
 
     public function postFormRequest()
     {
-            $all = Input::all();
+        $all = Input::all();
+        $errors = 'При отправку формы произошла ошибка, попробуйте еще раз или
+        позвоните нам по телефону ' . Setting::where('name', 'phone')->first()->value;
 
-            $rules = array(
-                'name' => 'required|min:2|max:255',
-                'text' => 'required|min:5',
-                'email'  => 'required|email',
-            );
+        $rules = array(
+            'name' => 'required|min:2|max:255',
+        );
 
-            $validator = Validator::make($all, $rules);
-            if ( $validator -> fails() ) {
-                return Redirect::to('/#contact')
-                        ->withErrors($validator)
-                        ->withInput()
-                        ->with('message_error', 'Ошибка, пожалуйста заполните форму');
+        $validator = Validator::make($all, $rules);
+
+
+
+        if ( $validator -> fails() ) {
+            return Redirect::back()
+                    ->withErrors($validator)
+                    ->withInput()
+                    ->with('message_error', 'Ошибка, пожалуйста заполните форму');
+        }
+        $data = [
+            'name' => $all['name'],
+            'email' => (!empty($all['email']) ? $all['email']:''),
+            'phone' => (!empty($all['phone']) ? $all['phone']:''),
+            'text' => (!empty($all['text']) ? $all['text']:''),
+            'slug_for' => (!empty($all['slug_for']) ? $all['slug_for']:''),
+            'item_id' => (!empty($all['item_id']) ? $all['item_id']:''),
+        ];
+
+        $post = new Requests();
+        $post->fill($data);
+        $post->save();
+
+        $mail = Setting::where('name', 'email')->first()->value;
+
+        if(empty($mail)) {return  Redirect::back()->with('message_error', $errors);}
+
+        $messages =  '<h1>Cообщение с сайта <a href="numidal.ru">numidal.ru</a></h1>';
+        $messages .= '<b>Пользователь: </b>'.$all['name'].'<br>';
+        if(!empty($all['text'])) {
+            $messages .= '<b>Сообщение: </b>' . $all['text'] . '<br>';
+        }
+        if(!empty($all['item_id'])) {
+            $item = Item::find($all['item_id']);
+            $messages .= '<b>Со страницы элемента: </b>'.$item->name.'<br>';
+        }
+        if(!empty($all['slug_for'])) {
+            $messages .= '<b>URL: </b>'.$all['slug_for'].'<br>';
+        }
+        $messages .= '<b>Контактные данные: </b>'.'<br>';
+        if(!empty($all['phone'])) {
+            $messages .= '<i>Телефон: </i>' . $all['phone'] . '<br>';
+        }
+        if(!empty($all['email'])) {
+            $messages .= '<i>Емайл: </i>' . $all['email'] . '<br>';
+        }
+
+        Mail::send('emails.message',
+            array('messages' => $messages ),
+            function ($message) use ($mail)  {
+                $message->to($mail)->subject('numidal.ru: сообщение с сайта');
             }
+        );
 
-            $post = new Requests();
-            $post->name = $all['name'];
-            $post->phone = $all['phone'];
-            $post->email = $all['email'];
-            $post->text = $all['text'];
-            $post->save();
-
-            $mail = Setting::where('name', 'email')->first()->value;
-
-            $messages = '<b>Пользователь: </b>'.$all['name'].'<br>';
-            $messages .= '<b>Сообщение: </b>'.$all['text'].'<br>';
-            $messages .= '<b>Контактные данные: </b>'.'<br>';
-            $messages .= '<i>Телефон: </i>'.$all['phone'].'<br>';
-            $messages .= '<i>Емайл: </i>'.$all['email'].'<br>';
-
-                Mail::send('emails.message',
-                    array('messages' => $messages ),
-                    function ($message) use ($mail)  {
-                        $message->to($mail)->subject('Заказ каталога');
-                    }
-                );
-
-            return Redirect::to('/#formRequest')
-                    ->with('message_sent', 'Ваше сообщение отправлено, с вами свяжутся наши сотрудники.');
+        return Redirect::back()
+                ->with('message_sent', 'Ваше сообщение отправлено, с вами свяжутся наши сотрудники.');
     }
 
     public function getMoreEvents()
