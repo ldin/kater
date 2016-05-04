@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <label for="inputName" class="sr-only">Имя</label>
                         <input type="text" name="name" class="form-control" id="inputName" placeholder="Ваше имя" required>
-                        <p class="red">Поле "Имя" должно быть заполнено</p>
+                        <div class="error-box"></div>
                         {{ ($errors->first('name')) ? Form::label('error', 'Поле "Имя" должно быть заполнено', array('class'=>'control-label')) : '' }}
 
                     </div>
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label for="inputEmail" class="sr-only">Email</label>
                         <input type="email" name="email" class="form-control" id="inputEmail" placeholder="Ваш e-mail">
-                        <p class="red hide">Поле "Email" должно быть заполнено</p>
+                        <div class="error-box"></div>
                         {{ ($errors->first('email')) ? Form::label('error', 'Поле "email" должно быть заполнено', array('class'=>'control-label')) : '' }}
 
                     </div>
@@ -38,12 +38,13 @@
                     <div class="form-group">
                         <label for="inputQuestion" class="sr-only">Текст сообщения</label>
                         <textarea name="text" class="form-control" id="inputQuestion" placeholder="Текст сообщения" rows='4' required></textarea>
-                        <p class="red hide">Сообщение не может быть пустым</p>
+                        <div class="error-box"></div>
                         {{ ($errors->first('email')) ? Form::label('error', 'Сообщение не может быть пустым', array('class'=>'control-label')) : '' }}
 
                     </div>
                     <button type="submit" class="btn btn-main js-btn-submit">Задать вопрос</button>
                 </form>
+                <div class="form-message"></div>
             </div>
 
             <div class="col-xs-12 col-sm-5" >
@@ -67,6 +68,7 @@
 @section('scripts')
 
     <script type="text/javascript" >
+        /*
         $(document).ready(function() {
 
             $('.js-btn-submit').on('click', function(){
@@ -96,6 +98,7 @@
 
             })
         });
+        */
     </script>
 
 @stop
