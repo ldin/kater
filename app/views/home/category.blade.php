@@ -39,7 +39,7 @@
 
                           <div class="description">
                               @if(!empty($item->prop['guests']))
-                                <p><i class="glyphicon glyphicon-user"></i>{{ $item->prop['guests']['text'] }} </p>
+                                <p><i class="glyphicon glyphicon-user"> </i> {{ $item->prop['guests']['text'] }} </p>
                               @endif
                               @if(!empty($item->prop['area']))
                                 <p>{{ $item->prop['area']['text'] }}</p>
