@@ -10,7 +10,7 @@ class Post extends Eloquent
 	  }
 	public function items()
 	{
-		return $this->hasMany('Item');
+		return $this->hasMany('Item')->orderBy('order', 'ASC');
 	}
 
     use SoftDeletingTrait;
