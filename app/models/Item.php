@@ -18,6 +18,7 @@ class Item extends Eloquent
 		'price',
 		'status',
 		'order',
+		'tags',
 		'seo_description',
 		'seo_keywords',
 	);

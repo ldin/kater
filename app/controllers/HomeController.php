@@ -38,7 +38,7 @@ class HomeController extends BaseController {
         $gallery = Gallery::orderBy('created_at', 'desc')->take(6)->get();
         $categories = Post::where('type_id',3)->get(['slug', 'image', 'name', 'preview']);
         $type_id=Type::where('status',1)->lists('type', 'id');
-        $popular = Item::where('image','!=', '')->orderBy('created_at', 'desc')->take(4)->get();
+        $popular = Item::where('tags','!=','')->orderBy('tags', 'asc')->take(4)->get();
         foreach($popular as $item) {
             foreach ($item->properties as $property) {
                 $prop[$property->slug]['name'] = $property->name;

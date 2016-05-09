@@ -32,7 +32,7 @@
                      <div class="col-xs-12 col-sm-3 item">
                           <a href="{{ '/'.$type->type.'/'.$row->slug.'/'.$item->slug }}">
                               @if(isset($item->image)&&($item->image))
-                                  {{ HTML::image('/upload/image/item/'.$item->image, 'img') }}
+                                  {{ HTML::image('/upload/image/item/'.$item->image, 'NUMIDAL - '.$item->name) }}
                               @endif
                               <p class="name">{{$item->name}}</p>
                           </a>
