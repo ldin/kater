@@ -72,7 +72,7 @@ class HomeController extends BaseController {
         if($type_post->template=='gallery'){
             $posts = Post::where('type_id',$type_post->id)->where('status',1)->where('parent',0)->orderBy('order', 'asc')->get();
             foreach ($posts as $key => $post) {
-                $post->gallerie = Gallery::where('post_id', $post->id)->paginate(20);
+                $post->photos = Gallery::where('post_id', $post->id)->orderBy('created_at', 'desc')->paginate(40);
             }
         }
 
@@ -247,11 +247,17 @@ class HomeController extends BaseController {
                 ->with('message_sent', 'Ваше сообщение отправлено, с вами свяжутся наши сотрудники.');
     }
 
-    public function getMoreEvents()
+    public function getMorePhotos()
       {
+
         if (Request::ajax()) {
-        $ids=$_POST['ids']; // в моём случае пост запросом передается массив чисел вида [1,2,3,4...], здесь я этот массив принимаю.
-        return View::make('home.more')->with('more', Model::whereNotIn('id','!=', $ids))->get(); //делаем запрос в базу данных, получаем статьи в которых нет id из массива $ids
+            $all = Input::all();
+            $post = new Post();
+            $post->photos = Gallery::where('post_id', $all['postId'])->orderBy('created_at', 'desc')->skip($all['offset'])->take(40)->get();
+//            var_dump('<pre>',$post->gallerie[0]->id); die();
+            return View::make('home.gallery-more')->with('post', $post); //делаем запрос в базу данных, получаем статьи в которых нет id из массива $ids
         }
+
+
       }
 }

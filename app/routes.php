@@ -28,7 +28,7 @@ Route::controller('admin', 'AdminController');
 
 //all
 
-//Route::post('more', array('before'=>'csrf-ajax', 'as'=>'more', 'uses'=>'HomeController@getMoreEvents'));
+Route::post('more-photos', array('before'=>'csrf-ajax', 'as'=>'more-photos', 'uses'=>'HomeController@getMorePhotos'));
 
 Route::get('/rate/{slug?}', 'HomeController@getRate');
 Route::get('/{type}/{slug?}', 'HomeController@getPage');

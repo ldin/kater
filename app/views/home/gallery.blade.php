@@ -43,32 +43,26 @@
 
                 @foreach($posts as $post)
 
-                    <div class="item">
+                    <div class="">
                         {{ $post->text  }}
                     </div>
-                    @if(!empty($post->gallerie))
+                    @if(!empty($post->photos))
 
                         <div class="masonry">
 
-                            @foreach($post->gallerie as $image)
-                                <div class="item">
-                                  <a class="fancybox" rel="gallery" href="{{ $image->image }}" title="{{ $image->text }}" style="background-image: url({{$image->small_image}})">
-{{--                                    {{ HTML::image($image->small_image, $image->alt) }}--}}
-                                  </a>
-                                </div>
-                            @endforeach
+                            @include('home.gallery-more')
+
+                            <div id="galleriesMore"></div>
+
                             <div class="clearfix"></div>
 
-                            {{--<button type="button" id="loading-example-btn" data-loading-text="Loading..." class="btn btn-primary noradius" style="margin:0px auto">--}}
-                              {{--Показать ещё--}}
-                            {{--</button>--}}
+                            <button type="button" id="loading-btn" data-loading-text="Loading..." class="btn btn-primary noradius"  data-postid="{{$post->id}}">
+                                Показать ещё
+                            </button>
 
-                            {{--<code lang="html">--}}
-                                {{--<div id="galleriesMore"></div>--}}
-                            {{--</code>--}}
+                            <div class="clearfix"></div>
 
-
-                            {{ $post->gallerie->links() }}
+                            <div class="hide">{{ $post->photos->links() }}</div>
 
                         </div>
 
@@ -121,22 +115,26 @@
       });
     });
 
-    $('#loading-example-btn').click(function () {
-        var btn = $(this)
-        btn.button('loading')
+    $('#loading-btn').click(function () {
+        var btn = $(this);
+        btn.button('loading');
+        console.log($('.item').length);
         $.ajax({
-            url: "more", // url запроса
+            url: "more-photos",
             cache: false,
-            data: { ids: ids }, // если нужно передать какие-то данные
-            type: "POST", // устанавливаем типа запроса POST
+            data: {
+                postId: btn.data('postid'),
+                offset:$('.item').length
+            },
+            type: "POST",
             beforeSend: function(request) {  // нужно для защиты от CSRF
                 return request.setRequestHeader('X-CSRF-Token', $("meta[name='csrf-token']").attr('content'));
             },
-            success: function(html) { $('#galleriesMore').append(html);} //контент подгружается в div#content
+            success: function(html) { $('#galleriesMore').append(html);}
         }).always(function () {
-            btn.button('reset')
+            btn.button('reset');
         });
-        return false
+        return false;
     });
 
   </script>
