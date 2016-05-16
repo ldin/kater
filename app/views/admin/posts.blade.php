@@ -107,11 +107,11 @@
     </div>
     {{ Form::close() }}
 </div>
-    @if($type_template[$row->type_id] == 'category')
+    @if(!empty($row) && $type_template[$row->type_id] == 'category' && !empty($item))
      @include('admin.post-item')
     @endif
 
-    @if($type_template[$row->type_id] == 'gallery')
+    @if(!empty($row) && $type_template[$row->type_id] == 'gallery')
      @include('admin.post-gallery')
     @endif
 

@@ -44,10 +44,11 @@ class AdminController extends BaseController {
 
         $templates = array(
                 'category'=>'Категории',
-                'page'=>'Текст',
+                'page'=>'Текст с меню',
                 'news'=>'Новости',
                 'gallery'=>'Галерея',
                 'contact'=>'Контакты',
+                'only-text'=>'Только текст',
         );
 
         //добавляем категорию
@@ -70,7 +71,6 @@ class AdminController extends BaseController {
             $type_template = Type::where('id', $type_id)->lists('template', 'id');
             $post = Post::find($id);
             $galleries = Gallery::where('post_id', $id)->get();
-            $items = Post::find($id)->items;
 
             $parent[0]= '';
             foreach ($posts as $value) {
@@ -78,9 +78,14 @@ class AdminController extends BaseController {
             }
             $view['type_template'] = $type_template;
             $view['galleries'] = $galleries;
-            $view['items'] = $items;
+
             $view['parent'] = $parent;
             $view['row'] = $post;
+
+            if(is_numeric($id) && $post){
+                $items = Post::find($id)->items;
+                $view['items'] = $items;
+            }
 
             return View::make('admin.posts', $view);
         }
